@@ -3,7 +3,7 @@ export default function Navigation() {
         <div className="header_section">
             <div className="container-fluid">
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                    <div className="logo"><a href="index.html"><img src="../public/images/logo.png" /></a></div>
+                    <div className="header-logo-my-class"><a href="index.html">OurBooks</a></div>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -16,7 +16,13 @@ export default function Navigation() {
                                 <a className="nav-link" href="about.html">About Us</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="gallery.html">Gallery</a>
+                                <a className="nav-link" href="gallery.html">All Books</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">Log In</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">Register</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="services.html">Services</a>

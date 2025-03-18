@@ -303,6 +303,11 @@ button {
     color: #fff;
 }
 
+.header-logo-my-class {
+    color: #fff;
+    font-size: 4em;
+}
+
 /* .logo {} */
 
 /* header section end */
@@ -312,7 +317,7 @@ button {
 .banner_section {
     width: 100%;
     float: left;
-    background-image: url(../images/banner-bg.png);
+    background-image: url(../public/images/header-books.jpg);
     height: auto;
     background-size: 100%;
     padding: 10px 0px 25px 0px;
@@ -329,7 +334,7 @@ button {
     width: 100%;
     float: left;
     font-size: 60px;
-    color: #252525;
+    color: #fff;
     padding-bottom: 0px;
 }
 

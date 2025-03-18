@@ -8,9 +8,9 @@ export default function Banner() {
                             <div className="row">
                                 <div className="col-sm-12">
                                     <div className="banner_taital">
-                                        <h1 className="outstanding_text">Outstanding</h1>
-                                        <h1 className="coffee_text">Coffee Shop</h1>
-                                        <p className="there_text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, </p>
+                                        <h1 className="outstanding_text">Discover Brand New Books</h1>
+                                        <h1 className="coffee_text">OurBooks</h1>
+                                        <p className="there_text"> Here you can find brand new copies of new titles and all your favorites!</p>
                                         <div className="learnmore_bt"><a href="#">Learn More</a></div>
                                     </div>
                                 </div>
@@ -20,9 +20,9 @@ export default function Banner() {
                             <div className="row">
                                 <div className="col-sm-12">
                                     <div className="banner_taital">
-                                        <h1 className="outstanding_text">Outstanding </h1>
-                                        <h1 className="coffee_text">Coffee Shop</h1>
-                                        <p className="there_text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, </p>
+                                        <h1 className="outstanding_text">Shop Second Hand </h1>
+                                        <h1 className="coffee_text">OurBooks</h1>
+                                        <p className="there_text">Shop second hand editions. </p>
                                         <div className="learnmore_bt"><a href="#">Learn More</a></div>
                                     </div>
                                 </div>
@@ -32,8 +32,8 @@ export default function Banner() {
                             <div className="row">
                                 <div className="col-sm-12">
                                     <div className="banner_taital">
-                                        <h1 className="outstanding_text">Outstanding </h1>
-                                        <h1 className="coffee_text">Coffee Shop</h1>
+                                        <h1 className="outstanding_text">Reading Accesoaries </h1>
+                                        <h1 className="coffee_text"> OurBooks</h1>
                                         <p className="there_text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, </p>
                                         <div className="learnmore_bt"><a href="#">Learn More</a></div>
                                     </div>

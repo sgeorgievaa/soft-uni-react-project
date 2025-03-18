@@ -5,7 +5,6 @@ export default function Gallery() {
                 <div className="row">
                     <div className="col-sm-12">
                         <h1 className="gallery_taital">Our Gallery</h1>
-                        <p className="gallery_text">Lorem Ipsum is simply dummy text of printing typesetting ststry lorem Ipsum the industry'ndard dummy text ever since of the 1500s, when an unknown printer took a galley of type and scra make a type specimen book. It has</p>
                     </div>
                 </div>
                 <div className="">
@@ -98,7 +97,6 @@ export default function Gallery() {
                         </div>
                     </div>
                 </div>
-                <div className="seemore_bt"><a href="#">See More</a></div>
             </div>
         </div>
     );

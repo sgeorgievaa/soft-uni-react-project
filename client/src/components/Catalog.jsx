@@ -40,66 +40,7 @@ export default function Catalog() {
                             </div>
                         </div>
                     </div>
-                    <div className="gallery_section_2">
-                        <div className="row">
-                            <div className="col-md-4">
-                                <div className="container_main">
-                                    <img src="../public/images/img-4.png" alt="Avatar" className="image" />
-                                    <div className="overlay">
-                                        <div className="text"><a href="#"><i className="fa fa-search" aria-hidden="true"></i></a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="container_main">
-                                    <img src="../public/images/img-5.png" alt="Avatar" className="image" />
-                                    <div className="overlay">
-                                        <div className="overlay">
-                                            <div className="text"><a href="#"><i className="fa fa-search" aria-hidden="true"></i></a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="container_main">
-                                    <img src="../public/images/img-6.png" alt="Avatar" className="image" />
-                                    <div className="overlay">
-                                        <div className="overlay">
-                                            <div className="text"><a href="#"><i className="fa fa-search" aria-hidden="true"></i></a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="gallery_section_2">
-                        <div className="row">
-                            <div className="col-md-4">
-                                <div className="container_main">
-                                    <img src="../public/images/img-7.png" alt="Avatar" className="image" />
-                                    <div className="overlay">
-                                        <div className="text"><a href="#"><i className="fa fa-search" aria-hidden="true"></i></a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="container_main">
-                                    <img src="../public/images/img-8.png" alt="Avatar" className="image" />
-                                    <div className="overlay">
-                                        <div className="text"><a href="#"><i className="fa fa-search" aria-hidden="true"></i></a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="container_main">
-                                    <img src="../public/images/img-9.png" alt="Avatar" className="image" />
-                                    <div className="overlay">
-                                        <div className="text"><a href="#"><i className="fa fa-search" aria-hidden="true"></i></a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>

@@ -1,21 +1,20 @@
 import About from "./About";
 import Contact from "./Contact";
-import Gallery from "./Gallery";
 import Services from "./Services";
 import Testimonial from "./Testimonial";
+import Catalog from "./Catalog";
 
-export default function Main() {
+export default function Home() {
     return (
         <>
             <About />
 
-            <Gallery />
-
-            <Services />
+            <Catalog />
+            {/* <Services /> */}
 
             <Testimonial />
 
-            <Contact />
+            {/* <Contact /> */}
         </>
     );
 }

@@ -1,10 +1,10 @@
-export default function Gallery() {
+export default function Catalog() {
     return (
         <div className="gallery_section layout_padding">
             <div className="container">
                 <div className="row">
                     <div className="col-sm-12">
-                        <h1 className="gallery_taital">Our Gallery</h1>
+                        <h1 className="gallery_taital">All Books</h1>
                     </div>
                 </div>
                 <div className="">
@@ -12,7 +12,11 @@ export default function Gallery() {
                         <div className="row">
                             <div className="col-md-4">
                                 <div className="container_main">
-                                    <img src={"../public/images/img-1.png"} alt="Avatar" className="image" />
+                                    <img src={"../public/images/harry-potter.jpg"} alt="Avatar" className="image" />
+                                    <div>
+                                        <h3>Harry Potter</h3>
+                                        {/* <img src={"../public/images/harry-potter.jpg"} alt="" /> */}
+                                    </div>
                                     <div className="overlay">
                                         <div className="text"><a href="#"><i className="fa fa-search" aria-hidden="true"></i></a></div>
                                     </div>

@@ -13,7 +13,7 @@ export default function Navigation() {
                                 <a className="nav-link" href="index.html">Home</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="about.html">About Us</a>
+                                <a className="nav-link" href="about.html">Add Book</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="gallery.html">All Books</a>

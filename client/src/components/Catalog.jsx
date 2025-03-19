@@ -1,4 +1,18 @@
+import { useEffect, useState } from "react";
+import bookService from "../services/bookService";
+import BookElement from "./BookElement";
+
 export default function Catalog() {
+    const [books, setBooks] = useState([]);
+
+    useEffect(() => {
+        bookService.getAll()
+            .then(result => {
+                setBooks(result);
+
+            })
+    }, []);
+
     return (
         <div className="gallery_section layout_padding">
             <div className="container">
@@ -10,37 +24,11 @@ export default function Catalog() {
                 <div className="">
                     <div className="gallery_section_2">
                         <div className="row">
-                            <div className="col-md-4">
-                                <div className="container_main">
-                                    <img src={"../public/images/harry-potter.jpg"} alt="Avatar" className="image" />
-                                    <div>
-                                        <h3>Harry Potter</h3>
-                                        {/* <img src={"../public/images/harry-potter.jpg"} alt="" /> */}
-                                    </div>
-                                    <div className="overlay">
-                                        <div className="text"><a href="#"><i className="fa fa-search" aria-hidden="true"></i></a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="container_main">
-                                    <img src="../public/images/img-2.png" alt="Avatar" className="image" />
-                                    <div className="overlay">
-                                        <div className="text"><a href="#"><i className="fa fa-search" aria-hidden="true"></i></a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="container_main">
-                                    <img src={"../public/images/img-3.png"} alt="Avatar" className="image" />
-                                    <div className="overlay">
-                                        <div className="text"><a href="#"><i className="fa fa-search" aria-hidden="true"></i></a></div>
-                                    </div>
-                                </div>
-                            </div>
+                            {books.map(book => <BookElement key={book._id} {...book} />)}
+
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>

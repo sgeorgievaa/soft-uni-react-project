@@ -1,14 +1,16 @@
+import styles from './AddBook.module.css'
+
 export default function AddBook() {
     return(
-        <section id="create-page" className="auth">
-        <div class="wrapper">
+        <section id={styles["create-page"]} className="auth">
+        <div className={styles["wrapper"]}>
 
         <figure>
-           <HTMLImageElement src="./public/images/about-img.png" alt="" />
+           <img src={"./public/images/about-img.png"} alt="" />
         </figure>
 
-        <form id="create">
-            <div className="container-add">
+        <form id={styles["create"]}>
+            <div className={styles["container-add"]}>
 
                 <h1>Add Book</h1>
                 <label htmlFor="title">Title:</label>
@@ -17,8 +19,8 @@ export default function AddBook() {
                 <label htmlFor="author">Author:</label>
                 <input type="text" id="author" name="author" placeholder="Enter book author name..." />
 
-                <label htmlFor="publisher">Publisher:</label>
-                <input type="text" id="piblisher" name="publisher" placeholder="Enter book publisher name..." />
+                <label htmlFor="genre">Genre:</label>
+                <input type="text" id="genre" name="genre" placeholder="Enter book genre..." />
 
                 <label htmlFor="year">Year of publishing:</label>
                 <input type="number" id="year" name="year" min="1800" placeholder="Enter year of publishing..." />
@@ -28,7 +30,7 @@ export default function AddBook() {
 
                 <label htmlFor="summary">Summary:</label>
                 <textarea name="summary" id="summary"></textarea>
-                <input className="btn submit" type="submit" value="Add Book" />
+                <input className={styles["btn submit"]} type="submit" value="Add Book" />
             </div>
 
         </form>

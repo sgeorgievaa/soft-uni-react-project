@@ -308,6 +308,10 @@ button {
     font-size: 4em;
 }
 
+.header-logo-my-class a {
+    color: white;
+}
+
 /* .logo {} */
 
 /* header section end */

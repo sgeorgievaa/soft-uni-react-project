@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import Header from './components/Header'
 import Catalog from './components/Catalog'
 import Home from './components/Home'
+import AddBook from './components/add-book/AddBook'
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path="/catalog" element={<Catalog />} />
+          <Route path="/add" element={<AddBook />} />
         </Routes>
       </main>
 

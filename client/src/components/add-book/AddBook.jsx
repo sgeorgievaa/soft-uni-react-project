@@ -30,7 +30,7 @@ export default function AddBook() {
 
                 <label htmlFor="summary">Summary:</label>
                 <textarea name="summary" id="summary"></textarea>
-                <input className={styles["btn submit"]} type="submit" value="Add Book" />
+                <input className={styles["btn"]} type="submit" value="Add Book" />
             </div>
 
         </form>

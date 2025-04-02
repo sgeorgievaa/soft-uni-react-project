@@ -797,15 +797,16 @@ a:hover {
     float: left;
 }
 
-.mail_section {
-    width: 100%;
+/* .mail_section {
+    width: 50%;
     float: left;
+    margin: 2em auto;
     background-image: url(../images/img-9.png);
     height: auto;
     padding: 23px 70px;
     background-repeat: no-repeat;
     background-size: cover;
-}
+} */
 
 .long_text {
     width: 52%;

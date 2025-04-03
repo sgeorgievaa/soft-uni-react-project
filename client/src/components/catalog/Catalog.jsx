@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import bookService from "../services/bookService";
-import BookElement from "./BookElement";
+import bookService from "../../services/bookService";
+import BookElement from "../book-element/BookElement";
 
 export default function Catalog() {
     const [books, setBooks] = useState([]);

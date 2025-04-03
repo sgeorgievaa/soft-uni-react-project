@@ -1,13 +1,15 @@
 import { Routes, Route } from 'react-router'
-import './App.css'
 
-import Footer from './components/Footer'
-import Header from './components/Header'
-import Catalog from './components/Catalog'
-import Home from './components/Home'
+import Footer from './components/footer/Footer'
+import Header from './components/header/Header'
+import Catalog from './components/catalog/Catalog'
+import Home from './components/home/Home'
 import AddBook from './components/add-book/AddBook'
 import Register from './components/register/Register'
 import Login from './components/login/Login'
+import BookDetails from './components/book-details/BookDetails'
+
+import './App.css'
 
 function App() {
 
@@ -22,6 +24,7 @@ function App() {
           <Route path="/add" element={<AddBook />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/catalog/:bookId/details" element={<BookDetails />} />
         </Routes>
       </main>
 

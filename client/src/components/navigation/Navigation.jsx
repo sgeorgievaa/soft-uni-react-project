@@ -29,6 +29,9 @@ export default function Navigation() {
                                 <Link className="nav-link" to="/register">Register</Link>
                             </li>
                             <li className="nav-item">
+                                <Link className="nav-link" to="/logout">Log Out</Link>
+                            </li>
+                            <li className="nav-item">
                                 <Link className="nav-link" to="/search">Search</Link>
                             </li>
                         </ul>

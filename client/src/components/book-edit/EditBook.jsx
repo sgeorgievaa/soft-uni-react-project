@@ -14,11 +14,19 @@ export default function EditBook() {
             .then(setBook)
     }, [bookId]);
 
+    const formAction = async (formData) => {
+        const bookData = Object.fromEntries(formData);
+
+        await bookService.edit(bookId, bookData);
+
+        navigate(`/catalog/${bookId}/details`)
+    }
+
     return (
         <section id={styles["create-page"]} className="auth">
             <div className={styles["wrapper"]}>
 
-                <form id={styles["create"]}>
+                <form id={styles["create"]} action={formAction}>
                     <div className={styles["container-add"]}>
 
                         <h1>Edit Book</h1>
@@ -35,7 +43,7 @@ export default function EditBook() {
                         <input type="number" id="year" name="year" min="1800" defaultValue={book.year} />
 
                         <label htmlFor="cover">Cover:</label>
-                        <input type="text" id="coverUrl" name="coverUrl" defaultValue={book.imageUrl} />
+                        <input type="text" id="imageUrl" name="imageUrl" defaultValue={book.imageUrl} />
 
                         <label htmlFor="summary">Summary:</label>
                         <textarea name="summary" id="summary" defaultValue={book.summary}></textarea>

@@ -19,8 +19,12 @@ export default {
         return request.post(baseUrl, bookData);
     },
 
+    edit(bookId, bookData) {
+        return request.put(`${baseUrl}/${bookId}`, {...bookData, _id: bookId});
+    },
+
     delete(bookId) {
         return request.delete(`${baseUrl}/${bookId}`);
         
-    }
+    },
 }

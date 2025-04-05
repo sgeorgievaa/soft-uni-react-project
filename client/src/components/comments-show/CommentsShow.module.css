@@ -1,0 +1,47 @@
+.btn {
+    width: 30%;
+    margin: 1em auto;
+    text-align: center;
+    font-size: 1em;
+    color: #ffffff;
+    background-color: #d33a11;
+    /* padding: 15px 50px 12px 50px; */
+    padding: 1em 1em;
+    border-radius: 20px;
+    display: block;
+  }
+  
+  .btn:hover {
+    color: #323131;
+    background-color: #ffffff;
+  }
+  
+  .comment {
+    border: 1px solid gray;
+    outline: 1px solid gray;
+    border-radius: 20px;
+    padding: 0.5em 1em;
+    background-color: rgb(209, 176, 136);;
+  }
+  
+  .comments h1 {
+    color: #9a9393;
+    font-weight: bold;
+  }
+  
+  .comments .label{
+    font-weight: bold;
+  }
+  
+  .comments .content {
+    color: white;
+    font-size: 2em;
+  }
+  
+  .comment-add {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding: 1em 6em;
+    margin: 0 auto;
+  }

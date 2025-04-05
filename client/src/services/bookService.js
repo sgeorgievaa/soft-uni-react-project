@@ -11,6 +11,10 @@ export default {
         return games;
     },
 
+    getOne(gameId) {
+        return request.get(`${baseUrl}/${gameId}`);
+    },
+
     create(bookData) {
         return request.post(baseUrl, bookData);
     }

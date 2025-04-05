@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 export default function BookElement({
     _id,
     title,
@@ -16,9 +18,11 @@ export default function BookElement({
                     <h4>{author}</h4>
                     <h4>{year}</h4>
                 </div>
-                <div className="overlay">
-                    <div className="text"><a href="#"><i className="fa fa-search" aria-hidden="true"></i></a></div>
-                </div>
+                <Link to={`/catalog/${_id}/details`}>
+                    <div className="overlay">
+                        <div className="text"><i className="fa fa-info-circle" aria-hidden="true"></i></div>
+                    </div>
+                </Link>
             </div>
         </div>
 

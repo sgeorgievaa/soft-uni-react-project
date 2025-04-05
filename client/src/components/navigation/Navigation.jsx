@@ -20,7 +20,7 @@ export default function Navigation() {
                                 <Link className="nav-link" to="/add">Add Book</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/catalog">All Book</Link>
+                                <Link className="nav-link" to="/catalog">All Books</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/login">Log In</Link>

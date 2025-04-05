@@ -1,5 +1,6 @@
 #create-page {
-    padding: 20em 20em;
+   width: 100%;
+    padding: 2em 5em;
     margin: 1em auto;
     display: flex;
     flex-direction: row;
@@ -22,6 +23,14 @@
     background-color: antiquewhite;
  }
 
+ figure {
+   width: 40%;
+ }
+
+ img {
+   width: 100%;
+ }
+
  .container-add {
     display: flex;
     flex-direction: column;
@@ -41,8 +50,23 @@
     font-weight: bold;
  }
 
+ .container-add p.content {
+   color: #ffffff;
+   font-size: 2em;
+ }
+
+ .container-add p.label {
+   font-weight: bold;
+ }
+
+ .container-add .buttons-div{
+   display: flex;
+   flex-direction: row;
+   margin: 0 8em;
+ }
+
  .container-add .btn {
-    width: 40%;
+    width: 30%;
     margin: 1em auto;
     text-align: center;
     font-size: 1em;

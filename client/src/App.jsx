@@ -11,8 +11,14 @@ import BookDetails from './components/book-details/BookDetails'
 
 import './App.css'
 import EditBook from './components/book-edit/EditBook'
+import { useState } from 'react'
 
 function App() {
+  const [email, setEmail] = useState();
+
+  const userLoginHandler = (email) => {
+    setEmail(email);
+  }
 
   return (
     <>
@@ -24,7 +30,7 @@ function App() {
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/add" element={<AddBook />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login onLogin={userLoginHandler} />} />
           <Route path="/catalog/:bookId/details" element={<BookDetails />} />
           <Route path="/catalog/:bookId/edit" element={<EditBook />} />
         </Routes>

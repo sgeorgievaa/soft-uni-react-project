@@ -1,11 +1,16 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
-export default function Login() {
+export default function Login({
+    onLogin,
+}) {
+    const navigate = useNavigate();
+
     const loginAction = (formData) => {
         const email = formData.get('email');
 
-        console.log(email);
+        onLogin(email);
         
+        navigate('/catalog');
     }
 
     return (

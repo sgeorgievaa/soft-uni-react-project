@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styles from './BookDetails.module.css'
-import { useNavigate, useParams } from 'react-router';
+import { Link, useNavigate, useParams } from 'react-router';
 import bookService from '../../services/bookService';
 
 export default function BookDetails() {
@@ -52,8 +52,7 @@ export default function BookDetails() {
 
                         <div className={styles['buttons-div']}>
 
-                            <input className={styles["btn"]} type="submit" value="Edit" />
-                            {/* <input className={styles["btn"]} type="submit" value="Delete" /> */}
+                            <Link to={`/catalog/${bookId}/edit`} className={styles["btn"]}>Edit</Link>
                             <button
                                 onClick={bookDeleteClickHandler}
                                 className={styles["btn"]}

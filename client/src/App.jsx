@@ -10,6 +10,7 @@ import Login from './components/login/Login'
 import BookDetails from './components/book-details/BookDetails'
 
 import './App.css'
+import EditBook from './components/book-edit/EditBook'
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/catalog/:bookId/details" element={<BookDetails />} />
+          <Route path="/catalog/:bookId/edit" element={<EditBook />} />
         </Routes>
       </main>
 

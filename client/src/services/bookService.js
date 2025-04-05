@@ -11,11 +11,16 @@ export default {
         return games;
     },
 
-    getOne(gameId) {
-        return request.get(`${baseUrl}/${gameId}`);
+    getOne(bookId) {
+        return request.get(`${baseUrl}/${bookId}`);
     },
 
     create(bookData) {
         return request.post(baseUrl, bookData);
+    },
+
+    delete(bookId) {
+        return request.delete(`${baseUrl}/${bookId}`);
+        
     }
 }

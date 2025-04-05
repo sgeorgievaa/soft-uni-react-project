@@ -1,10 +1,11 @@
-export const request = async (method, url, data) => {
+const request = async (method, url, data) => {
     let options = {};
 
-    if (method != 'GET') { 
+    if (method !== 'GET') { 
         options = {
             method,       
         };
+        // options.method = method;
     }
 
     if (data) {
@@ -27,5 +28,6 @@ export default {
     get: request.bind(null, 'GET'),
     post: request.bind(null, 'POST'),
     put: request.bind(null, 'PUT'),
-    delete: request.bind(null, 'DELETE'),
+    // delete: request.bind(null, 'DELETE'),
+    delete: (...params) => request('DELETE', ...params),
 }

@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import styles from './BookDetails.module.css'
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import bookService from '../../services/bookService';
 
 export default function BookDetails() {
+    const navigate = useNavigate();
     const [book, setBook] = useState({});
     const { bookId } = useParams();
 
@@ -14,6 +15,20 @@ export default function BookDetails() {
         })();
     }, [bookId]);
 
+    const bookDeleteClickHandler = async () => {
+        
+        const hasConfirmed = confirm(`Are you sure you want to delete ${book.title} book?`);
+    
+        if (!hasConfirmed) {
+            return;
+        }
+
+
+        await bookService.delete(bookId);
+
+        navigate('/catalog');
+    }
+
     return (
         <section id={styles["create-page"]} className="auth">
             <div className={styles["wrapper"]}>
@@ -22,7 +37,7 @@ export default function BookDetails() {
                     <img src={book.imageUrl} alt="Cover image unavailable" />
                 </figure>
 
-                <form id={styles["create"]}>
+                <div id={styles["create"]}>
                     <div className={styles["container-add"]}>
 
                         <h1>{book.title}</h1>
@@ -38,11 +53,17 @@ export default function BookDetails() {
                         <div className={styles['buttons-div']}>
 
                             <input className={styles["btn"]} type="submit" value="Edit" />
-                            <input className={styles["btn"]} type="submit" value="Delete" />
+                            {/* <input className={styles["btn"]} type="submit" value="Delete" /> */}
+                            <button
+                                onClick={bookDeleteClickHandler}
+                                className={styles["btn"]}
+                            >
+                                Delete
+                            </button>
                         </div>
                     </div>
 
-                </form>
+                </div>
             </div>
 
         </section>

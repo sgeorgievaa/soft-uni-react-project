@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import styles from './BookDetails.module.css'
 import { Link, useNavigate, useParams } from 'react-router';
 import bookService from '../../services/bookService';
+import CommentsShow from '../comments-show/CommentsShow';
+import CommentsCreate from '../comments-create/CommentsCreate';
 
 
 export default function BookDetails() {
@@ -69,6 +71,10 @@ export default function BookDetails() {
 
 
                 </div>
+
+                <CommentsShow />
+
+                <CommentsCreate />
                 
             </div>
         </section>

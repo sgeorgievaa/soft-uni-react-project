@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router';
 import bookService from '../../services/bookService';
 import CommentsShow from '../comments-show/CommentsShow';
 import CommentsCreate from '../comments-create/CommentsCreate';
+import commentService from '../../services/commentService';
 
 
 export default function BookDetails({
@@ -11,13 +12,15 @@ export default function BookDetails({
 }) {
     const navigate = useNavigate();
     const [book, setBook] = useState({});
+    const [comments, setComments] = useState([]);
     const { bookId } = useParams();
 
     useEffect(() => {
-        (async () => {
-            const result = await bookService.getOne(bookId);
-            setBook(result);
-        })();
+        bookService.getOne(bookId)
+            .then(setBook);
+
+        commentService.getAll(bookId)
+            .then(setComments);
     }, [bookId]);
 
     const bookDeleteClickHandler = async () => {
@@ -33,6 +36,10 @@ export default function BookDetails({
 
         navigate('/catalog');
     }
+
+    const commentCreateHandler = (newComment) => {
+        setComments(state => [...state, newComment]);
+    };
 
     return (
         <section id={styles["create-page"]} className="auth">
@@ -74,9 +81,13 @@ export default function BookDetails({
 
                 </div>
 
-                <CommentsShow />
+                <CommentsShow comments={comments} />
 
-                <CommentsCreate email={email} bookId={bookId}/>
+                <CommentsCreate
+                    email={email} 
+                    bookId={bookId}
+                    onCreate={commentCreateHandler}
+                />
                 
             </div>
         </section>

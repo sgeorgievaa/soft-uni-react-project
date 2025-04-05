@@ -1,16 +1,24 @@
 import styles from './CommentsShow.module.css'
 
-export default function CommentsShow() {
-    return(
+export default function CommentsShow({
+    comments,
+}) {
+    return (
         <div className={styles["comments"]}>
-                    <h1>Comments:</h1>
-                    <div className={styles["comment"]}>
-                        <p className={styles['label']}>Anna</p>
+            <h1>Comments:</h1>
+            {comments.length > 0
+                ? comments.map(comment => (
+                    <div key={comment._id} className={styles["comment"]}>
+                        <p className={styles['label']}>{comment.name}</p>
                         <hr />
-                        <p className={styles['content']}>Best book ever</p>
-                    </div>  
+                        <p className={styles['content']}>{comment.comment}</p>
+                    </div>
+                ))
+                : <p>No comments yet.</p>
+            }
 
-                   
+
+
         </div>
     );
 }

@@ -76,7 +76,7 @@ export default function BookDetails({
 
                 <CommentsShow />
 
-                <CommentsCreate email={email} />
+                <CommentsCreate email={email} bookId={bookId}/>
                 
             </div>
         </section>

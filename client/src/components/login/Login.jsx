@@ -27,7 +27,7 @@ export default function Login({
                 </div>
 
                 <div className="send_btn">
-                    <input type="submit" className="main_bt" value="LOGIN" />
+                    <input type="submit" className="btn" value="LOGIN" />
                 </div>
 
                 <p>

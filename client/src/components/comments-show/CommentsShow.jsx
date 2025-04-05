@@ -10,6 +10,7 @@ export default function CommentsShow({
                 ? comments.map(comment => (
                     <div key={comment._id} className={styles["comment"]}>
                         <p className={styles['label']}>{comment.name}</p>
+                        <p>({comment.email})</p>
                         <hr />
                         <p className={styles['content']}>{comment.comment}</p>
                     </div>

@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 export default function Register() {
     return (
         <div className="mail_section">
@@ -18,6 +20,10 @@ export default function Register() {
                 <div className="send_btn">
                     <div type="text" className="main_bt"><a href="#">REGISTER</a></div>
                 </div>
+
+                <p>
+                    <span>If you already have a profile click <Link to={"/login"}>here</Link></span>
+                </p>
             </div>
         </div >
     );

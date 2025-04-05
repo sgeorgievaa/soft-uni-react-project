@@ -9,7 +9,6 @@ export default function Catalog() {
         bookService.getAll()
             .then(result => {
                 setBooks(result);
-
             })
     }, []);
 
@@ -24,7 +23,10 @@ export default function Catalog() {
                 <div className="">
                     <div className="gallery_section_2">
                         <div className="row">
-                            {books.map(book => <BookElement key={book._id} {...book} />)}
+                            {books.length > 0
+                                ? books.map(book => <BookElement key={book._id} {...book} />)
+                                : <h3>There are no books yet.</h3>
+                            }
 
                         </div>
                     </div>

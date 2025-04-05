@@ -1,6 +1,16 @@
-export default function CommentsCreate() {
+export default function CommentsCreate({
+    email,
+}) {
+    const commentAction = (formData) => {
+        const comment = formData.get('comment');
+
+        console.log(email);
+        console.log(comment);
+        
+    }
+
     return(
-        <form action="#" className={"comment-add"}>
+        <form action={commentAction} className={"comment-add"}>
         <h1>Add Comment:</h1>
 
         <label htmlFor="name">Name:</label>

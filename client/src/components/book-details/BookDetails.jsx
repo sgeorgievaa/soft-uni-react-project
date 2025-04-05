@@ -6,7 +6,9 @@ import CommentsShow from '../comments-show/CommentsShow';
 import CommentsCreate from '../comments-create/CommentsCreate';
 
 
-export default function BookDetails() {
+export default function BookDetails({
+    email,
+}) {
     const navigate = useNavigate();
     const [book, setBook] = useState({});
     const { bookId } = useParams();
@@ -74,7 +76,7 @@ export default function BookDetails() {
 
                 <CommentsShow />
 
-                <CommentsCreate />
+                <CommentsCreate email={email} />
                 
             </div>
         </section>

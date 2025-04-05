@@ -31,7 +31,7 @@ function App() {
           <Route path="/add" element={<AddBook />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login onLogin={userLoginHandler} />} />
-          <Route path="/catalog/:bookId/details" element={<BookDetails />} />
+          <Route path="/catalog/:bookId/details" element={<BookDetails email={email} />} />
           <Route path="/catalog/:bookId/edit" element={<EditBook />} />
         </Routes>
       </main>

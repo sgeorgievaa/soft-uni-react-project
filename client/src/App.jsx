@@ -1,5 +1,7 @@
 import { Routes, Route } from 'react-router'
 
+import { UserContext } from './contexts/UserContext'
+
 import Footer from './components/footer/Footer'
 import Header from './components/header/Header'
 import Catalog from './components/catalog/Catalog'
@@ -21,7 +23,7 @@ function App() {
   }
 
   return (
-    <>
+    <UserContext.Provider value={{...authData, userLoginHandler}}>
       <Header />
 
       <main>
@@ -30,14 +32,14 @@ function App() {
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/add" element={<AddBook />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login onLogin={userLoginHandler} />} />
-          <Route path="/catalog/:bookId/details" element={<BookDetails email={authData.email} />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/catalog/:bookId/details" element={<BookDetails />} />
           <Route path="/catalog/:bookId/edit" element={<EditBook />} />
         </Routes>
       </main>
 
       <Footer />
-    </>
+    </UserContext.Provider>
   )
 }
 

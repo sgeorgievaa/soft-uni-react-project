@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styles from './BookDetails.module.css'
 import { Link, useNavigate, useParams } from 'react-router';
 import bookService from '../../services/bookService';
 import CommentsShow from '../comments-show/CommentsShow';
 import CommentsCreate from '../comments-create/CommentsCreate';
 import commentService from '../../services/commentService';
+import { UserContext } from '../../contexts/UserContext';
 
 
-export default function BookDetails({
-    email,
-}) {
+export default function BookDetails() {
     const navigate = useNavigate();
+    const { email } = useContext(UserContext);
     const [book, setBook] = useState({});
     const [comments, setComments] = useState([]);
     const { bookId } = useParams();
@@ -84,11 +84,11 @@ export default function BookDetails({
                 <CommentsShow comments={comments} />
 
                 <CommentsCreate
-                    email={email} 
+                    email={email}
                     bookId={bookId}
                     onCreate={commentCreateHandler}
                 />
-                
+
             </div>
         </section>
     );

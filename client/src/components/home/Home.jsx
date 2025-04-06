@@ -9,7 +9,7 @@ export default function Home() {
 
             <Catalog />
 
-            <Testimonial />
+            {/* <Testimonial /> */}
         </>
     );
 }

@@ -6,10 +6,8 @@ const baseUlr = 'http://localhost:3030/users';
 export const useLogin = () => {
     const abortRef = useRef(new AbortController());
 
-    const login = async (email, password) => {
-        const result = await request.post(`${baseUlr}/login`, { email, password }, { signal: abortRef.current.signal });
-
-        return result;
+    const login = (email, password) => {
+        return request.post(`${baseUlr}/login`, { email, password }, { signal: abortRef.current.signal });
     };
 
     useEffect(() => {

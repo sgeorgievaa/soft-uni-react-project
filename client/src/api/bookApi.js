@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import request from "../utils/request";
 import { UserContext } from "../contexts/UserContext";
 
@@ -29,6 +29,19 @@ export default {
         return request.delete(`${baseUrl}/${bookId}`);
         
     },
+};
+
+export const useBooks = () => {
+    const [books, setBooks] = useState([]);
+
+    useEffect(() => {
+        request.get(baseUrl)
+            .then(setBooks);
+    }, []);
+
+    return {
+        books,
+    }
 }
 
 export const useCreateBook = () => {

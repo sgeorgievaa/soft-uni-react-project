@@ -1,16 +1,10 @@
 import { useEffect, useState } from "react";
 import bookService from "../../services/bookService";
 import BookElement from "../book-element/BookElement";
+import { useBooks } from "../../api/bookApi";
 
 export default function Catalog() {
-    const [books, setBooks] = useState([]);
-
-    useEffect(() => {
-        bookService.getAll()
-            .then(result => {
-                setBooks(result);
-            })
-    }, []);
+    const { books } = useBooks();
 
     return (
         <div className="gallery_section layout_padding">

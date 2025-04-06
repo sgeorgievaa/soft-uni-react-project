@@ -30,7 +30,23 @@ export const useBook = (bookId) => {
     }
 }
 
+export const useLatestBook = () => {
+    const [latestBooks, setLatestBooks] = useState([]);
 
+    useEffect(() => {
+        const searchParams = new URLSearchParams({
+            sortBy: '_createdOn desc',
+            pageSize: 3,
+        });
+
+        request.get(`${baseUrl}?${searchParams.toString()}`)
+            .then(setLatestBooks);
+    }, []);
+
+    return {
+        latestBooks,
+    }
+}
 
 export const useCreateBook = () => {
     const {request} = useAuth();

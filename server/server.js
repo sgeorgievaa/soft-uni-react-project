@@ -1653,62 +1653,74 @@
         },
         books: [
             {
+                "_ownerId":	"4c7632f6-09e6-4b3f-b7d8-a40e98e38f64",
                 "title": "The Women",
                 "author": "Kristin Hannah",
                 "genre": "History",
                 "year": "2024",
                 "imageUrl": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1733493019i/127305853.jpg",
                 "summary": "Women can be heroes. When twenty-year-old nursing student Frances “Frankie” McGrath hears these words, it is a revelation. Raised in the sun-drenched, idyllic world of Southern California and sheltered by her conservative parents, she has always prided herself on doing the right thing. But in 1965, the world is changing, and she suddenly dares to imagine a different future for herself. When her brother ships out to serve in Vietnam, she joins the Army Nurse Corps and follows his path. As green and inexperienced as the men sent to Vietnam to fight, Frankie is over-whelmed by the chaos and destruction of war. Each day is a gamble of life and death, hope and betrayal; friendships run deep and can be shattered in an instant. In war, she meets—and becomes one of—the lucky, the brave, the broken, and the lost. But war is just the beginning for Frankie and her veteran friends. The real battle lies in coming home to a changed and divided America, to angry protesters, and to a country that wants to forget Vietnam. The Women is the story of one woman gone to war, but it shines a light on all women who put themselves in harm/’s way and whose sacrifice and commitment to their country has too often been forgotten. A novel about deep friendships and bold patriotism, The Women is a richly drawn story with a memorable heroine whose idealism and courage under fire will come to define an era.",
+                "_createdOn":	1743943945820,
                 "_id": "16556940-95f1-43dc-9ad1-34affe32eb54"
             },
 
             {
+                "_ownerId":	"4c7632f6-09e6-4b3f-b7d8-a40e98e38f64",
                 "title": "The Class Castle",
                 "author": "Jeannette Walls",
                 "genre": "Memoir",
                 "year": "2005",
                 "imageUrl": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1523542886i/7445.jpg",
                 "summary": "The Glass Castle is a remarkable memoir of resilience and redemption, and a revelatory look into a family at once deeply dysfunctional and uniquely vibrant. When sober, Jeannette’s brilliant and charismatic father captured his children’s imagination, teaching them physics, geology, and how to embrace life fearlessly. But when he drank, he was dishonest and destructive. Her mother was a free spirit who abhorred the idea of domesticity and didn’t want the responsibility of raising a family. ",
+                "_createdOn":	1743943945820,
                 "_id": "16556940-95f1-43dc-9ad1-34affe32eb55"
             },
 
             {
+                "_ownerId":	"4c7632f6-09e6-4b3f-b7d8-a40e98e38f64",
                 "title": "To Kill a Mockingbird",
                 "author": "Harper Lee",
                 "genre": "Southern Gothic",
                 "year": "1960",
                 "imageUrl": "https://cdn.britannica.com/21/182021-050-666DB6B1/book-cover-To-Kill-a-Mockingbird-many-1961.jpg",
                 "summary": "Kill a Mockingbird is a 1960 Southern Gothic novel by American author Harper Lee. It became instantly successful after its release; in the United States, it is widely read in high schools and middle schools.",
+                "_createdOn":	1743943945820,
                 "_id": "16556940-95f1-43dc-9ad1-34affe32eb56"
             },
 
             {
+                "_ownerId":	"4c7632f6-09e6-4b3f-b7d8-a40e98e38f64",
                 "title": "Breakfast of Champions",
                 "author": "Kurt Vonnegut",
                 "genre": "Humor, Dystopian Fiction",
                 "year": "1973",
                 "imageUrl": "https://upload.wikimedia.org/wikipedia/en/4/46/BreakfastOfChampions%28Vonnegut%29.jpg",
                 "summary": "In Breakfast of Champions, one of Kurt Vonnegut’s most beloved characters, the aging writer Kilgore Trout, finds to his horror that a Midwest car dealer is taking his fiction as truth. What follows is murderously funny satire, as Vonnegut looks at war, sex, racism, success, politics, and pollution in America and reminds us how to see the truth.",
+                "_createdOn":	1743943945820,
                 "_id": "16556940-95f1-43dc-9ad1-34affe32eb57"
             },
 
             {
+                "_ownerId":	"4c7632f6-09e6-4b3f-b7d8-a40e98e38f64",
                 "title": "Nineteen Eighty-Four",
                 "author": "George Orwell",
                 "genre": "Dystopian",
                 "year": "1949",
                 "imageUrl": "https://www.univ.ox.ac.uk/wp-content/uploads/2018/11/1984.jpg",
                 "summary": "A masterpiece of rebellion and imprisonment where war is peace freedom is slavery and Big Brother is watching. Thought Police, Big Brother, Orwellian - these words have entered our vocabulary because of George Orwell's classic dystopian novel 1984. The story of one man's Nightmare Odyssey as he pursues a forbidden love affair through a world ruled by warring states and a power structure that controls not only information but also individual thought and memory 1984 is a prophetic haunting tale More relevant than ever before 1984 exposes the worst crimes imaginable the destruction of truth freedom and individuality. With a foreword by Thomas Pynchon. This beautiful paperback edition features deckled edges and french flaps a perfect gift for any occasion",
+                "_createdOn":	1743943945820,
                 "_id": "16556940-95f1-43dc-9ad1-34affe32eb58"
             },
 
             {
+                "_ownerId":	"4c7632f6-09e6-4b3f-b7d8-a40e98e38f64",
                 "title": "Wolf Hall",
                 "author": "Hilary Mantel",
                 "genre": "History",
                 "year": "2009",
                 "imageUrl": "https://www.ciela.com/media/catalog/product/cache/9a7ceae8a5abbd0253425b80f9ef99a5/w/o/wolf_hall_-_the_wolf_hall_trilogy.jpg",
                 "summary": "England in the 1520s is a heartbeat from disaster. If the king dies without a male heir, the country could be destroyed by civil war. Henry VIII wants to annul his marriage of twenty years and marry Anne Boleyn. The pope and most of Europe opposes him. Into this impasse steps Thomas Cromwell: a wholly original man, a charmer and a bully, both idealist and opportunist, astute in reading people, and implacable in his ambition. But Henry is volatile: one day tender, one day murderous. Cromwell helps him break the opposition, but what will be the price of his triumph?",
+                "_createdOn":	1743943945820,
                 "_id": "16556940-95f1-43dc-9ad1-34affe32eb59"
             }
         ]

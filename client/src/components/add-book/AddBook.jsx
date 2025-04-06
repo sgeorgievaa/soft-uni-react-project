@@ -2,14 +2,16 @@ import { useNavigate } from 'react-router'
 
 import bookService from '../../services/bookService';
 import styles from './AddBook.module.css'
+import { useCreateBook } from '../../api/bookApi';
 
 export default function AddBook() {
     const navigate = useNavigate();
+    const { create } = useCreateBook();
 
     const submitAction = async (formData) => {
         const bookData = Object.fromEntries(formData);
 
-        const result = await bookService.create(bookData);
+        await create(bookData);
 
         navigate('/catalog');
     }

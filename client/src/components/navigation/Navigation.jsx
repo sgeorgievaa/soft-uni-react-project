@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import { Link } from "react-router";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function Navigation() {
+    const { email } = useContext(UserContext);
+
     return (
         <div className="header_section">
             <div className="container-fluid">
@@ -17,20 +21,35 @@ export default function Navigation() {
                                 <Link className="nav-link" to="/">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/add">Add Book</Link>
-                            </li>
-                            <li className="nav-item">
                                 <Link className="nav-link" to="/catalog">All Books</Link>
                             </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/login">Log In</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/register">Register</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/logout">Log Out</Link>
-                            </li>
+
+                            {email
+                                ? (
+                                    <>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/add">Add Book</Link>
+                                        </li>
+
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/logout">Log Out</Link>
+                                        </li>
+
+                                        {email}
+                                    </>
+                                )
+                                : (
+                                    <>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/login">Log In</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/register">Register</Link>
+                                        </li>
+                                    </>
+                                )
+                            }
+
                             <li className="nav-item">
                                 <Link className="nav-link" to="/search">Search</Link>
                             </li>

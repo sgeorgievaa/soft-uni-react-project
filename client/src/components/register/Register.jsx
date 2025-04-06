@@ -11,10 +11,10 @@ export default function Register() {
                     <input type="text" className="email-bt" placeholder="Email" name="Email" />
                 </div>
                 <div className="form-group">
-                    <input type="text" className="email-bt" placeholder="Password" name="Password" />
+                    <input type="password" className="email-bt" placeholder="Password" name="Password" />
                 </div>
                 <div className="form-group">
-                    <input type="text" className="email-bt" placeholder="Repeat Password" name="RePassword" />
+                    <input type="password" className="email-bt" placeholder="Repeat Password" name="RePassword" />
                 </div>
                 
                 <div className="send_btn">

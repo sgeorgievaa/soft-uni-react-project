@@ -30,7 +30,7 @@ export default function Login({
                         <input type="text" className="email-bt" placeholder="Email" name="email" />
                     </div>
                     <div className="form-group">
-                        <input type="text" className="email-bt" placeholder="Password" name="password" />
+                        <input type="password" className="email-bt" placeholder="Password" name="password" />
                     </div>
 
                     <div className="send_btn">

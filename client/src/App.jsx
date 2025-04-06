@@ -14,6 +14,7 @@ import BookDetails from './components/book-details/BookDetails'
 import './App.css'
 import EditBook from './components/book-edit/EditBook'
 import { useState } from 'react'
+import Logout from './components/logout/Logout'
 
 function App() {
   const [authData, setAuthData] = useState({});
@@ -33,6 +34,7 @@ function App() {
           <Route path="/add" element={<AddBook />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
           <Route path="/catalog/:bookId/details" element={<BookDetails />} />
           <Route path="/catalog/:bookId/edit" element={<EditBook />} />
         </Routes>

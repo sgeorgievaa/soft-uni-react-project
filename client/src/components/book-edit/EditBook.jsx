@@ -1,23 +1,18 @@
 import { useNavigate, useParams } from 'react-router'
 
 import styles from './EditBook.module.css'
-import { useEffect, useState } from 'react';
-import bookService from '../../services/bookService';
+import { useBook, useEditBook } from '../../api/bookApi';
 
 export default function EditBook() {
     const navigate = useNavigate();
-    const {bookId} = useParams();
-    const [book, setBook] = useState({});
-
-    useEffect(() => {
-        bookService.getOne(bookId)
-            .then(setBook)
-    }, [bookId]);
+    const { bookId } = useParams();
+    const { book } = useBook(bookId)
+    const { edit } = useEditBook();
 
     const formAction = async (formData) => {
         const bookData = Object.fromEntries(formData);
 
-        await bookService.edit(bookId, bookData);
+        await edit(bookId, bookData);
 
         navigate(`/catalog/${bookId}/details`)
     }

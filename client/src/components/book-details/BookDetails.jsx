@@ -1,27 +1,25 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './BookDetails.module.css'
 import { Link, useNavigate, useParams } from 'react-router';
-import bookService from '../../services/bookService';
 import CommentsShow from '../comments-show/CommentsShow';
 import CommentsCreate from '../comments-create/CommentsCreate';
 import commentService from '../../services/commentService';
-import { UserContext } from '../../contexts/UserContext';
+import { useBook, useDeleteBook } from '../../api/bookApi';
+import useAuth from '../../hooks/useAuth';
 
 
 export default function BookDetails() {
     const navigate = useNavigate();
-    const { email } = useContext(UserContext);
-    const [book, setBook] = useState({});
+    const { email } = useAuth();
     const [comments, setComments] = useState([]);
     const { bookId } = useParams();
+    const { book } = useBook(bookId);
+    const {deleteBook} = useDeleteBook();
 
-    useEffect(() => {
-        bookService.getOne(bookId)
-            .then(setBook);
-
-        commentService.getAll(bookId)
-            .then(setComments);
-    }, [bookId]);
+    // useEffect(() => {
+    //     commentService.getAll(bookId)
+    //         .then(setComments);
+    // }, [bookId]);
 
     const bookDeleteClickHandler = async () => {
 
@@ -32,7 +30,7 @@ export default function BookDetails() {
         }
 
 
-        await bookService.delete(bookId);
+        await deleteBook(bookId);
 
         navigate('/catalog');
     }

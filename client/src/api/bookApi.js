@@ -1,35 +1,8 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import request from "../utils/request";
-import { UserContext } from "../contexts/UserContext";
+import useAuth from "../hooks/useAuth";
 
 const baseUrl = 'http://localhost:3030/data/books';
-
-export default {
-    async getAll() {
-        const result = await request.get(baseUrl);
-
-        const games = Object.values(result);
-
-        return games;
-    },
-
-    getOne(bookId) {
-        return request.get(`${baseUrl}/${bookId}`);
-    },
-
-    create(bookData) {
-        return request.post(baseUrl, bookData);
-    },
-
-    edit(bookId, bookData) {
-        return request.put(`${baseUrl}/${bookId}`, {...bookData, _id: bookId});
-    },
-
-    delete(bookId) {
-        return request.delete(`${baseUrl}/${bookId}`);
-        
-    },
-};
 
 export const useBooks = () => {
     const [books, setBooks] = useState([]);
@@ -44,20 +17,53 @@ export const useBooks = () => {
     }
 }
 
-export const useCreateBook = () => {
-    const {accessToken} = useContext(UserContext);
+export const useBook = (bookId) => {
+    const [book, setBook] = useState({});
 
-    const options = {
-        headers: {
-            'X-Authorization': accessToken,
-        }
+    useEffect(() => {
+        request.get(`${baseUrl}/${bookId}`)
+            .then(setBook);
+    }, [bookId]);
+
+    return {
+        book,
     }
+}
+
+
+
+export const useCreateBook = () => {
+    const {request} = useAuth();
 
     const create = (bookData) => {
-        return request.post(baseUrl, bookData, options);
+        return request.post(baseUrl, bookData);
     }
 
     return {
         create,
+    }
+};
+
+export const useEditBook = () => {
+    const {request} = useAuth();
+
+    const edit = (bookId, bookData) => {
+        request.put(`${baseUrl}/${bookId}`, {...bookData, _id: bookId});
+    }
+
+    return {
+        edit,
+    }
+};
+
+export const useDeleteBook = () => {
+    const {request} = useAuth();
+
+    const deleteBook = (bookId) => {
+        request.delete(`${baseUrl}/${bookId}`)
+    }
+
+    return  {
+        deleteBook,
     }
 }

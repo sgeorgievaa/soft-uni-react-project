@@ -19,4 +19,14 @@ export const useLogin = () => {
     return {
         login,
     }
+};
+
+export const useRegister = () => {
+    const register = (email, password) => {
+        return request.post(`${baseUlr}/register`, { email, password });
+    }
+
+    return {
+        register,
+    }
 }

@@ -75,9 +75,9 @@ export const useEditBook = () => {
 export const useDeleteBook = () => {
     const {request} = useAuth();
 
-    const deleteBook = (bookId) => {
-        request.delete(`${baseUrl}/${bookId}`)
-    }
+    const deleteBook = (bookId) => 
+        request.delete(`${baseUrl}/${bookId}`);
+    
 
     return  {
         deleteBook,

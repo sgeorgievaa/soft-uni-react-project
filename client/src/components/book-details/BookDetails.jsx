@@ -28,8 +28,6 @@ export default function BookDetails() {
         if (!hasConfirmed) {
             return;
         }
-
-        console.log(book);
         
         await deleteBook(bookId);
 

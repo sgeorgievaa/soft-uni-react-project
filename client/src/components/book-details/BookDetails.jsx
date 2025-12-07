@@ -10,7 +10,7 @@ import useAuth from '../../hooks/useAuth';
 
 export default function BookDetails() {
     const navigate = useNavigate();
-    const { email } = useAuth();
+    const { email, userId } = useAuth();
     const [comments, setComments] = useState([]);
     const { bookId } = useParams();
     const { book } = useBook(bookId);
@@ -29,7 +29,8 @@ export default function BookDetails() {
             return;
         }
 
-
+        console.log(book);
+        
         await deleteBook(bookId);
 
         navigate('/catalog');
@@ -38,6 +39,9 @@ export default function BookDetails() {
     const commentCreateHandler = (newComment) => {
         setComments(state => [...state, newComment]);
     };
+
+    // const isOwner = true;
+    const isOwner = userId === book._ownerId;
 
     return (
         <section id={styles["create-page"]} className="auth">
@@ -62,16 +66,18 @@ export default function BookDetails() {
                             <p className={styles['label']}>Summary:</p>
                             <p className={styles['content-summary']}>{book.summary}</p>
 
-                            <div className={styles['buttons-div']}>
+                            { isOwner && (<div className={styles['buttons-div']}>
 
                                 <Link to={`/catalog/${bookId}/edit`} className={styles["btn"]}>Edit</Link>
+                            
                                 <button
                                     onClick={bookDeleteClickHandler}
                                     className={styles["btn"]}
                                 >
                                     Delete
                                 </button>
-                            </div>
+                            </div>)
+                            }
                         </div>
 
                     </div>

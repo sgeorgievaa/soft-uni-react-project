@@ -1694,7 +1694,7 @@
                 "author": "Kurt Vonnegut",
                 "genre": "Humor, Dystopian Fiction",
                 "year": "1973",
-                "imageUrl": "https://upload.wikimedia.org/wikipedia/en/4/46/BreakfastOfChampions%28Vonnegut%29.jpg",
+                "imageUrl": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1327934446i/4980.jpg",
                 "summary": "In Breakfast of Champions, one of Kurt Vonnegut’s most beloved characters, the aging writer Kilgore Trout, finds to his horror that a Midwest car dealer is taking his fiction as truth. What follows is murderously funny satire, as Vonnegut looks at war, sex, racism, success, politics, and pollution in America and reminds us how to see the truth.",
                 "_createdOn":	1743943945820,
                 "_id": "16556940-95f1-43dc-9ad1-34affe32eb57"

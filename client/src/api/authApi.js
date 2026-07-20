@@ -52,7 +52,7 @@ export const useLogout = () => {
                 // that's fine, we still want to clear it locally below
             })
             .finally(() => {
-                userLogoutHandler();
+                userLogoutHandler();a
                 localStorage.removeItem('accessToken');
             });
     }, [accessToken, userLogoutHandler]);

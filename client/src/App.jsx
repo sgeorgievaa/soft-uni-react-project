@@ -15,6 +15,8 @@ import './App.css'
 import EditBook from './components/book-edit/EditBook'
 import { useState } from 'react'
 import Logout from './components/logout/Logout'
+import GuestGuard from './hoc/GuestGuard'
+import PrivateGuard from './hoc/PrivateGuard'
 
 function App() {
   const [authData, setAuthData] = useState({});
@@ -33,14 +35,23 @@ function App() {
 
       <main>
         <Routes>
+          {/* public */}
           <Route path='/' element={<Home />} />
           <Route path="/catalog" element={<Catalog />} />
-          <Route path="/add" element={<AddBook />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/logout" element={<Logout />} />
           <Route path="/catalog/:bookId/details" element={<BookDetails />} />
-          <Route path="/catalog/:bookId/edit" element={<EditBook />} />
+          
+          {/* guests */}
+          <Route element={<GuestGuard />}>
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+          </Route>
+          
+          {/* registered users */}
+          <Route element={<PrivateGuard />}>
+            <Route path="/add" element={<AddBook />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/catalog/:bookId/edit" element={<EditBook />} />
+          </Route>
         </Routes>
       </main>
 

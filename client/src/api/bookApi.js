@@ -64,7 +64,7 @@ export const useEditBook = () => {
     const {request} = useAuth();
 
     const edit = (bookId, bookData) => {
-        request.put(`${baseUrl}/${bookId}`, {...bookData, _id: bookId});
+        return request.put(`${baseUrl}/${bookId}`, {...bookData, _id: bookId});
     }
 
     return {

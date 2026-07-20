@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 
 import styles from './EditBook.module.css'
@@ -8,13 +9,29 @@ export default function EditBook() {
     const { bookId } = useParams();
     const { book } = useBook(bookId)
     const { edit } = useEditBook();
+    const [error, setError] = useState('');
 
     const formAction = async (formData) => {
+        setError('');
+
         const bookData = Object.fromEntries(formData);
 
-        await edit(bookId, bookData);
+        if (!bookData.title || !bookData.author || !bookData.genre || !bookData.year) {
+            setError('Please fill in all required fields.');
+            return;
+        }
 
-        navigate(`/catalog/${bookId}/details`)
+        if (Number(bookData.year) < 1800 || Number(bookData.year) > new Date().getFullYear()) {
+            setError('Please enter a valid publishing year.');
+            return;
+        }
+
+        try {
+            await edit(bookId, bookData);
+            navigate(`/catalog/${bookId}/details`);
+        } catch (err) {
+            setError(err.message || 'Something went wrong while saving your changes. Please try again.');
+        }
     }
 
     return (
@@ -25,6 +42,9 @@ export default function EditBook() {
                     <div className={styles["container-add"]}>
 
                         <h1>Edit Book</h1>
+
+                        {error && <p className={styles["error"]}>{error}</p>}
+
                         <label htmlFor="title">Title:</label>
                         <input type="text" id="title" name="title" defaultValue={book.title} />
 

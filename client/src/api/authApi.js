@@ -47,7 +47,14 @@ export const useLogout = () => {
         };
 
         request.get(`${baseUlr}/logout`, null, options)
-            .then(userLogoutHandler);
+            .catch(() => {
+                // Token may already be invalid/expired server-side —
+                // that's fine, we still want to clear it locally below
+            })
+            .finally(() => {
+                userLogoutHandler();
+                localStorage.removeItem('accessToken');
+            });
     }, [accessToken, userLogoutHandler]);
 
     return {

@@ -16,6 +16,9 @@ export default function Login() {
         userLoginHandler(authData);
 
         navigate('/catalog');
+
+      
+        
     }
 
     const [_, loginAction, isPending] = useActionState(loginHandler, { email: '', password: '' });

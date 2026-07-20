@@ -19,18 +19,23 @@ import GuestGuard from './hoc/GuestGuard'
 import PrivateGuard from './hoc/PrivateGuard'
 
 function App() {
-  const [authData, setAuthData] = useState({});
+  const [authData, setAuthData] = useState(() => {
+    const stored = localStorage.getItem('accessToken');
+    return stored ? JSON.parse(stored) : {};
+  });
 
   const userLoginHandler = (resultData) => {
     setAuthData(resultData);
+    localStorage.setItem('accessToken', JSON.stringify(resultData));
   };
 
   const userLogoutHandler = () => {
     setAuthData({});
+    localStorage.removeItem('accessToken');
   }
 
   return (
-    <UserContext.Provider value={{...authData, userLoginHandler, userLogoutHandler}}>
+    <UserContext.Provider value={{ ...authData, userLoginHandler, userLogoutHandler }}>
       <Header />
 
       <main>
@@ -39,13 +44,15 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/catalog/:bookId/details" element={<BookDetails />} />
-          
+
           {/* guests */}
+
+
           <Route element={<GuestGuard />}>
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
           </Route>
-          
+
           {/* registered users */}
           <Route element={<PrivateGuard />}>
             <Route path="/add" element={<AddBook />} />

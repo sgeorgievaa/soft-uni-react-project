@@ -3,9 +3,9 @@ import { UserContext } from "../contexts/UserContext";
 import request from "../utils/request";
 
 export default function useAuth() {
-    const {accessToken, ...authData} = useContext(UserContext);
+    const {accessToken, userLogoutHandler, ...authData} = useContext(UserContext);
 
-    const requestWrapper = useCallback((method, url, data, options = {}) => {
+    const requestWrapper = useCallback(async (method, url, data, options = {}) => {
         const authOptions = {
             ...options,
             headers: {
@@ -14,8 +14,16 @@ export default function useAuth() {
             }
         }
 
-        return request.baseRequest(method, url, data, accessToken ? authOptions : options);
-    }, [accessToken]);
+        try {
+            return await request.baseRequest(method, url, data, accessToken ? authOptions : options);
+        } catch (err) {
+            if (err.status === 401 || err.status === 403) {
+                userLogoutHandler();
+                localStorage.removeItem('accessToken');
+            }
+            throw err;
+        }
+    }, [accessToken, userLogoutHandler]);
 
     const requestObject = useMemo(() => ({
         get: requestWrapper.bind(null, 'GET'),
@@ -26,6 +34,7 @@ export default function useAuth() {
 
     return {
         ...authData,
+        userLogoutHandler,
         accessToken,
         userId: authData._id,
         isAuthenticated: !!accessToken,

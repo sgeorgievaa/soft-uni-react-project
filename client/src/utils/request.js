@@ -15,15 +15,19 @@ const request = async (method, url, data, options = {}) => {
         };
     }
 
-    
     const response = await fetch(url, options);
     const responseContentType = response.headers.get('Content-Type');
 
-    if (!responseContentType ) {
-        return;
+    let result;
+    if (responseContentType && responseContentType.includes('application/json')) {
+        result = await response.json();
     }
 
-    const result = await response.json();
+    if (!response.ok) {
+        const error = new Error(result?.message || 'Request failed');
+        error.status = response.status;
+        throw error;
+    }
 
     return result;
 };

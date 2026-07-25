@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router";
 import { useRegister } from "../../api/authApi";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 
 
@@ -8,21 +8,35 @@ export default function Register() {
     const navigate = useNavigate();
     const { register } = useRegister();
     const { userLoginHandler } = useContext(UserContext);
+    const [error, setError] = useState('');
 
     const resgiterHandler = async (formData) => {
+        setError('');
+
         const { username, email, password, rePassword } = Object.fromEntries(formData);
 
-        if (password !== rePassword) {
-            console.log('Password mismatch');
-
+        if (!username || !email || !password || !rePassword) {
+            setError('Please fill in all fields.');
             return;
         }
 
-        const authData = await register(email, password);
+        if (password !== rePassword) {
+            setError('Passwords do not match.');
+            return;
+        }
 
-        userLoginHandler(authData);
+        if (password.length < 6) {
+            setError('Password must be at least 6 characters long.');
+            return;
+        }
 
-        navigate('/');
+        try {
+            const authData = await register(email, password);
+            userLoginHandler(authData);
+            navigate('/');
+        } catch (err) {
+            setError(err.message || 'Registration failed. Please try again.');
+        }
     }
 
 

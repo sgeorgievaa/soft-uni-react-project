@@ -1,4 +1,4 @@
-import { useActionState, useContext } from "react";
+import { useActionState, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { useLogin } from "../../api/authApi";
 import { UserContext } from "../../contexts/UserContext";
@@ -7,18 +7,27 @@ export default function Login() {
     const navigate = useNavigate();
     const { userLoginHandler } = useContext(UserContext);
     const { login } = useLogin();
+    const [error, setError] = useState('');
 
     const loginHandler = async (_, formData) => {
+        setError('');
+
         const values = Object.fromEntries(formData);
 
-        const authData = await login(values.email, values.password);
+        if (!values.email || !values.password) {
+            setError('Please enter both email and password.');
+            return { email: values.email || '', password: '' };
+        }
 
-        userLoginHandler(authData);
+        try {
+            const authData = await login(values.email, values.password);
+            userLoginHandler(authData);
+            navigate('/catalog');
+        } catch (err) {
+            setError(err.message || 'Login or password don\'t match.');
+        }
 
-        navigate('/catalog');
-
-      
-        
+        return { email: values.email, password: '' };
     }
 
     const [_, loginAction, isPending] = useActionState(loginHandler, { email: '', password: '' });
@@ -28,6 +37,8 @@ export default function Login() {
         <div className="mail_section">
             <div className="email_text">
                 <form id="login" action={loginAction}>
+
+                    {error && <p className="form-error">{error}</p>}
 
                     <div className="form-group">
                         <input type="text" className="email-bt" placeholder="Email" name="email" />

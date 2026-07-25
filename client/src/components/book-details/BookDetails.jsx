@@ -1,44 +1,59 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './BookDetails.module.css'
 import { Link, useNavigate, useParams } from 'react-router';
 import CommentsShow from '../comments-show/CommentsShow';
 import CommentsCreate from '../comments-create/CommentsCreate';
-import commentService from '../../services/commentService';
 import { useBook, useDeleteBook } from '../../api/bookApi';
+import { useComments } from '../../api/commentApi';
+import { useLikes, useToggleLike } from '../../api/likeApi';
 import useAuth from '../../hooks/useAuth';
 
 
 export default function BookDetails() {
     const navigate = useNavigate();
-    const { email, userId } = useAuth();
-    const [comments, setComments] = useState([]);
+    const { userId, isAuthenticated } = useAuth();
     const { bookId } = useParams();
     const { book } = useBook(bookId);
-    const {deleteBook} = useDeleteBook();
-
-    // useEffect(() => {
-    //     commentService.getAll(bookId)
-    //         .then(setComments);
-    // }, [bookId]);
+    const { deleteBook } = useDeleteBook();
+    const { comments, setComments } = useComments(bookId);
+    const { likesCount, hasLiked, myLike, refetchLikes } = useLikes(bookId);
+    const { like, unlike } = useToggleLike();
+    const [likeError, setLikeError] = useState('');
 
     const bookDeleteClickHandler = async () => {
-
         const hasConfirmed = confirm(`Are you sure you want to delete ${book.title} book?`);
 
         if (!hasConfirmed) {
             return;
         }
-        
-        await deleteBook(bookId);
 
-        navigate('/catalog');
+        try {
+            await deleteBook(bookId);
+            navigate('/catalog');
+        } catch (err) {
+            alert(err.message || 'Could not delete the book.');
+        }
     }
 
     const commentCreateHandler = (newComment) => {
-        setComments(state => [...state, newComment]);
+        setComments(state => [newComment, ...state]);
     };
 
-    // const isOwner = true;
+    const likeClickHandler = async () => {
+        setLikeError('');
+
+        try {
+            if (hasLiked) {
+                await unlike(myLike._id);
+            } else {
+                await like(bookId);
+            }
+            refetchLikes();
+        } catch (err) {
+            setLikeError(err.message || 'Could not update your like. Please try again.');
+        }
+    };
+
     const isOwner = userId === book._ownerId;
 
     return (
@@ -64,18 +79,25 @@ export default function BookDetails() {
                             <p className={styles['label']}>Summary:</p>
                             <p className={styles['content-summary']}>{book.summary}</p>
 
-                            { isOwner && (<div className={styles['buttons-div']}>
+                            <div className={styles['buttons-div']}>
+                                {isAuthenticated
+                                    ? (
+                                        <button onClick={likeClickHandler} className={styles["btn"]}>
+                                            {hasLiked ? 'Unlike' : 'Like'} ({likesCount})
+                                        </button>
+                                    )
+                                    : <p>{likesCount} {likesCount === 1 ? 'like' : 'likes'}</p>
+                                }
 
-                                <Link to={`/catalog/${bookId}/edit`} className={styles["btn"]}>Edit</Link>
-                            
-                                <button
-                                    onClick={bookDeleteClickHandler}
-                                    className={styles["btn"]}
-                                >
-                                    Delete
-                                </button>
-                            </div>)
-                            }
+                                {isOwner && (
+                                    <>
+                                        <Link to={`/catalog/${bookId}/edit`} className={styles["btn"]}>Edit</Link>
+                                        <button onClick={bookDeleteClickHandler} className={styles["btn"]}>Delete</button>
+                                    </>
+                                )}
+                            </div>
+
+                            {likeError && <p className="form-error">{likeError}</p>}
                         </div>
 
                     </div>
@@ -85,11 +107,10 @@ export default function BookDetails() {
 
                 <CommentsShow comments={comments} />
 
-                <CommentsCreate
-                    email={email}
-                    bookId={bookId}
-                    onCreate={commentCreateHandler}
-                />
+                {isAuthenticated
+                    ? <CommentsCreate bookId={bookId} onCreate={commentCreateHandler} />
+                    : <p>Please <Link to="/login">log in</Link> to leave a comment.</p>
+                }
 
             </div>
         </section>

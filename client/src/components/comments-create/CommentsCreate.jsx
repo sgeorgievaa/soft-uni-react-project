@@ -1,31 +1,42 @@
-import commentService from "../../services/commentService";
+import { useState } from 'react';
+import { useCreateComment } from '../../api/commentApi';
 
-export default function CommentsCreate({
-    email,
-    bookId,
-    onCreate,
-}) {
+export default function CommentsCreate({ bookId, onCreate }) {
+    const { create } = useCreateComment();
+    const [error, setError] = useState('');
+
     const commentAction = async (formData) => {
+        setError('');
+
         const name = formData.get('name');
         const comment = formData.get('comment');
 
-        const createdComment = await commentService.create(email, bookId, name, comment);
+        if (!name || !comment) {
+            setError('Please fill in both your name and a comment.');
+            return;
+        }
 
-        onCreate(createdComment);
-    }
+        try {
+            const createdComment = await create(bookId, name, comment);
+            onCreate(createdComment);
+        } catch (err) {
+            setError(err.message || 'Could not post your comment. Please try again.');
+        }
+    };
 
-    return(
+    return (
         <form action={commentAction} className={"comment-add"}>
-        <h1>Add Comment:</h1>
+            <h1>Add Comment:</h1>
 
-        <label htmlFor="name">Name:</label>
-        <input type="text" id="name" name="name" placeholder="Enter your name..." />
+            {error && <p className="form-error">{error}</p>}
 
-        <label htmlFor="comment">Comment:</label>
-        <textarea type="text" id="comment" name="comment" placeholder="Enter your comment about this book..." />
+            <label htmlFor="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name..." />
 
-        <input className={"btn"} type="submit" value="Add Comment" />
+            <label htmlFor="comment">Comment:</label>
+            <textarea id="comment" name="comment" placeholder="Enter your comment about this book..." />
 
-    </form>
+            <input className={"btn"} type="submit" value="Add Comment" />
+        </form>
     );
 }

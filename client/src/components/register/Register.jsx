@@ -45,6 +45,9 @@ export default function Register() {
             <div className="email_text">
                 <form id="register" action={resgiterHandler}>
 
+                    {error && <p className="form-error">{error}</p>}
+
+
                     <div className="form-group">
                         <input type="text" className="email-bt" placeholder="Name" name="username" />
                     </div>

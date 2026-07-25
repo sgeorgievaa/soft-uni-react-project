@@ -1110,3 +1110,14 @@ a:hover {
 .email_text span a {
     color: orange;
 }
+
+.form-error {
+    color: #d33a11;
+    background-color: #ffffff;
+    border: 1px solid #d33a11;
+    border-radius: 8px;
+    padding: 0.5em 1em;
+    text-align: center;
+    font-weight: bold;
+    margin: 0 0 1em 0;
+}

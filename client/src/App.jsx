@@ -17,6 +17,7 @@ import { useState } from 'react'
 import Logout from './components/logout/Logout'
 import GuestGuard from './hoc/GuestGuard'
 import PrivateGuard from './hoc/PrivateGuard'
+import Search from './components/search/Search'
 
 function App() {
   const [authData, setAuthData] = useState(() => {
@@ -44,7 +45,9 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/catalog/:bookId/details" element={<BookDetails />} />
-
+          <Route path='/search' element={<Search />} />
+          
+          
           {/* guests */}
 
 

@@ -1,15 +1,21 @@
 import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router'
+import { Navigate, useNavigate, useParams } from 'react-router'
 
 import styles from './EditBook.module.css'
 import { useBook, useEditBook } from '../../api/bookApi';
+import useAuth from '../../hooks/useAuth';
 
 export default function EditBook() {
     const navigate = useNavigate();
     const { bookId } = useParams();
-    const { book } = useBook(bookId)
+    const { book, isLoading } = useBook(bookId)
     const { edit } = useEditBook();
+    const { userId } = useAuth();
     const [error, setError] = useState('');
+
+    if (!isLoading && book._id && userId !== book._ownerId) {
+        return <Navigate to={`/catalog/${bookId}/details`} />;
+    }
 
     const formAction = async (formData) => {
         setError('');

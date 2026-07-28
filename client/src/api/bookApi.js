@@ -19,14 +19,18 @@ export const useBooks = () => {
 
 export const useBook = (bookId) => {
     const [book, setBook] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
+        setIsLoading(true);
         request.get(`${baseUrl}/${bookId}`)
-            .then(setBook);
+            .then(setBook)
+            .finally(() => setIsLoading(false));
     }, [bookId]);
 
     return {
         book,
+        isLoading,
     }
 }
 

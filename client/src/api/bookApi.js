@@ -9,7 +9,8 @@ export const useBooks = () => {
 
     useEffect(() => {
         request.get(baseUrl)
-            .then(setBooks);
+            .then(setBooks)
+            .catch(() => setBooks([]));
     }, []);
 
     return {
@@ -25,6 +26,7 @@ export const useBook = (bookId) => {
         setIsLoading(true);
         request.get(`${baseUrl}/${bookId}`)
             .then(setBook)
+            .catch(() => setBook({}))
             .finally(() => setIsLoading(false));
     }, [bookId]);
 
@@ -44,7 +46,8 @@ export const useLatestBook = () => {
         });
 
         request.get(`${baseUrl}?${searchParams.toString()}`)
-            .then(setLatestBooks);
+            .then(setLatestBooks)
+            .catch(() => setLatestBooks([]));
     }, []);
 
     return {

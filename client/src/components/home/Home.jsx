@@ -1,20 +1,35 @@
+import { Link } from 'react-router';
 import About from "../about/About";
-import Testimonial from "../testimonial/Testimonial";
-import Catalog from "../catalog/Catalog";
+import BookElement from "../book-element/BookElement";
 import { useLatestBook } from "../../api/bookApi";
 
 export default function Home() {
-    const {latestBooks} = useLatestBook();
+    const { latestBooks } = useLatestBook();
 
-    console.log(latestBooks);
-    
     return (
         <>
             <About />
 
-            <Catalog />
-
-            {/* <Testimonial /> */}
+            <div className="gallery_section layout_padding">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-sm-12">
+                            <h1 className="gallery_taital">Latest Books</h1>
+                        </div>
+                    </div>
+                    <div className="gallery_section_2">
+                        <div className="row">
+                            {latestBooks.length > 0
+                                ? latestBooks.map(book => <BookElement key={book._id} {...book} />)
+                                : <p>No books yet.</p>
+                            }
+                        </div>
+                    </div>
+                    <div className="seemore_bt">
+                        <Link to="/catalog">See All Books</Link>
+                    </div>
+                </div>
+            </div>
         </>
     );
 }

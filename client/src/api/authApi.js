@@ -1,63 +1,59 @@
-import { useContext, useEffect, useRef } from "react";
-import request from "../utils/request"
-import { UserContext } from "../contexts/UserContext";
+import { useEffect } from "react";
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    updateProfile,
+} from "firebase/auth";
+import { auth } from "../firebase";
 
-const baseUlr = 'http://localhost:3030/users';
+const getErrorMessage = (err) => {
+    switch (err.code) {
+        case 'auth/invalid-credential':
+        case 'auth/wrong-password':
+        case 'auth/user-not-found':
+            return "Email or password don't match.";
+        case 'auth/email-already-in-use':
+            return 'A user with this email already exists.';
+        case 'auth/invalid-email':
+            return 'Please enter a valid email address.';
+        case 'auth/weak-password':
+            return 'Password must be at least 6 characters long.';
+        case 'auth/network-request-failed':
+            return 'Network error. Please check your connection.';
+        default:
+            return 'Something went wrong. Please try again.';
+    }
+};
 
 export const useLogin = () => {
-    const abortRef = useRef(new AbortController());
-
-    const login = (email, password) => {
-        return request.post(`${baseUlr}/login`, { email, password }, { signal: abortRef.current.signal });
+    const login = async (email, password) => {
+        try {
+            return await signInWithEmailAndPassword(auth, email, password);
+        } catch (err) {
+            throw new Error(getErrorMessage(err));
+        }
     };
 
-    useEffect(() => {
-        const abortController = abortRef.current;
-
-        return () => abortController.abort();
-    }, []);
-
-    return {
-        login,
-    }
+    return { login };
 };
 
 export const useRegister = () => {
-    const register = (email, password) => {
-        return request.post(`${baseUlr}/register`, { email, password });
-    }
+    const register = async (email, password, username) => {
+        try {
+            const credential = await createUserWithEmailAndPassword(auth, email, password);
+            await updateProfile(credential.user, { displayName: username });
+            return credential;
+        } catch (err) {
+            throw new Error(getErrorMessage(err));
+        }
+    };
 
-    return {
-        register,
-    }
+    return { register };
 };
 
 export const useLogout = () => {
-    const { accessToken, userLogoutHandler } = useContext(UserContext);
-
     useEffect(() => {
-        if (!accessToken) {
-            return;
-        }
-
-        const options = {
-            headers: {
-                'X-Authorization': accessToken,
-            }
-        };
-
-        request.get(`${baseUlr}/logout`, null, options)
-            .catch(() => {
-                // Token may already be invalid/expired server-side —
-                // that's fine, we still want to clear it locally below
-            })
-            .finally(() => {
-                userLogoutHandler();a
-                localStorage.removeItem('accessToken');
-            });
-    }, [accessToken, userLogoutHandler]);
-
-    return {
-        isLoggedOut: !!accessToken,
-    }
+        signOut(auth);
+    }, []);
 };

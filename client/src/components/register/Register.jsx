@@ -1,19 +1,31 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { useRegister } from "../../api/authApi";
-import { useContext, useState } from "react";
-import { UserContext } from "../../contexts/UserContext";
-
 
 export default function Register() {
     const navigate = useNavigate();
     const { register } = useRegister();
-    const { userLoginHandler } = useContext(UserContext);
-    const [error, setError] = useState('');
 
-    const resgiterHandler = async (formData) => {
+    const [values, setValues] = useState({
+        username: '',
+        email: '',
+        password: '',
+        rePassword: '',
+    });
+    const [error, setError] = useState('');
+    const [isPending, setIsPending] = useState(false);
+
+    const changeHandler = (e) => {
+        setValues(state => ({ ...state, [e.target.name]: e.target.value }));
+    };
+
+    const submitHandler = async (e) => {
+        e.preventDefault();
         setError('');
 
-        const { username, email, password, rePassword } = Object.fromEntries(formData);
+        const username = values.username.trim();
+        const email = values.email.trim();
+        const { password, rePassword } = values;
 
         if (!username || !email || !password || !rePassword) {
             setError('Please fill in all fields.');
@@ -30,39 +42,68 @@ export default function Register() {
             return;
         }
 
+        setIsPending(true);
+
         try {
-            const authData = await register(email, password);
-            userLoginHandler(authData);
+            await register(email, password, username);
             navigate('/');
         } catch (err) {
-            setError(err.message || 'Registration failed. Please try again.');
+            setError(err.message);
+        } finally {
+            setIsPending(false);
         }
-    }
-
+    };
 
     return (
         <div className="mail_section">
             <div className="email_text">
-                <form id="register" action={resgiterHandler}>
+                <form id="register" onSubmit={submitHandler}>
 
                     {error && <p className="form-error">{error}</p>}
 
-
                     <div className="form-group">
-                        <input type="text" className="email-bt" placeholder="Name" name="username" />
+                        <input
+                            type="text"
+                            className="email-bt"
+                            placeholder="Name"
+                            name="username"
+                            value={values.username}
+                            onChange={changeHandler}
+                        />
                     </div>
                     <div className="form-group">
-                        <input type="text" className="email-bt" placeholder="Email" name="email" />
+                        <input
+                            type="text"
+                            className="email-bt"
+                            placeholder="Email"
+                            name="email"
+                            value={values.email}
+                            onChange={changeHandler}
+                        />
                     </div>
                     <div className="form-group">
-                        <input type="password" className="email-bt" placeholder="Password" name="password" />
+                        <input
+                            type="password"
+                            className="email-bt"
+                            placeholder="Password"
+                            name="password"
+                            value={values.password}
+                            onChange={changeHandler}
+                        />
                     </div>
                     <div className="form-group">
-                        <input type="password" className="email-bt" placeholder="Repeat Password" name="rePassword" />
+                        <input
+                            type="password"
+                            className="email-bt"
+                            placeholder="Repeat Password"
+                            name="rePassword"
+                            value={values.rePassword}
+                            onChange={changeHandler}
+                        />
                     </div>
 
                     <div className="send_btn">
-                        <input type="submit" className="btn" value="REGISTER" />
+                        <input type="submit" className="btn" value="REGISTER" disabled={isPending} />
                     </div>
 
                     <p>

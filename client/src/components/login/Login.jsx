@@ -1,50 +1,69 @@
-import { useActionState, useContext, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { useLogin } from "../../api/authApi";
-import { UserContext } from "../../contexts/UserContext";
 
 export default function Login() {
     const navigate = useNavigate();
-    const { userLoginHandler } = useContext(UserContext);
     const { login } = useLogin();
-    const [error, setError] = useState('');
 
-    const loginHandler = async (_, formData) => {
+    const [values, setValues] = useState({ email: '', password: '' });
+    const [error, setError] = useState('');
+    const [isPending, setIsPending] = useState(false);
+
+    const changeHandler = (e) => {
+        setValues(state => ({ ...state, [e.target.name]: e.target.value }));
+    };
+
+    const submitHandler = async (e) => {
+        e.preventDefault();
         setError('');
 
-        const values = Object.fromEntries(formData);
+        const email = values.email.trim();
 
-        if (!values.email || !values.password) {
+        if (!email || !values.password) {
             setError('Please enter both email and password.');
-            return { email: values.email || '', password: '' };
+            return;
         }
+
+        setIsPending(true);
 
         try {
-            const authData = await login(values.email, values.password);
-            userLoginHandler(authData);
+            await login(email, values.password);
             navigate('/catalog');
         } catch (err) {
-            setError(err.message || 'Login or password don\'t match.');
+            setError(err.message);
+            setValues(state => ({ ...state, password: '' }));
+        } finally {
+            setIsPending(false);
         }
-
-        return { email: values.email, password: '' };
-    }
-
-    const [_, loginAction, isPending] = useActionState(loginHandler, { email: '', password: '' });
+    };
 
     return (
-
         <div className="mail_section">
             <div className="email_text">
-                <form id="login" action={loginAction}>
+                <form id="login" onSubmit={submitHandler}>
 
                     {error && <p className="form-error">{error}</p>}
 
                     <div className="form-group">
-                        <input type="text" className="email-bt" placeholder="Email" name="email" />
+                        <input
+                            type="text"
+                            className="email-bt"
+                            placeholder="Email"
+                            name="email"
+                            value={values.email}
+                            onChange={changeHandler}
+                        />
                     </div>
                     <div className="form-group">
-                        <input type="password" className="email-bt" placeholder="Password" name="password" />
+                        <input
+                            type="password"
+                            className="email-bt"
+                            placeholder="Password"
+                            name="password"
+                            value={values.password}
+                            onChange={changeHandler}
+                        />
                     </div>
 
                     <div className="send_btn">

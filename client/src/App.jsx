@@ -13,30 +13,37 @@ import BookDetails from './components/book-details/BookDetails'
 
 import './App.css'
 import EditBook from './components/book-edit/EditBook'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Logout from './components/logout/Logout'
 import GuestGuard from './hoc/GuestGuard'
 import PrivateGuard from './hoc/PrivateGuard'
 import Search from './components/search/Search'
+import { onAuthStateChanged } from 'firebase/auth'
+import { auth } from './firebase'
 
 function App() {
-  const [authData, setAuthData] = useState(() => {
-    const stored = localStorage.getItem('accessToken');
-    return stored ? JSON.parse(stored) : {};
-  });
+  const [authData, setAuthData] = useState({});
+  const [isAuthReady, setIsAuthReady] = useState(false);
 
-  const userLoginHandler = (resultData) => {
-    setAuthData(resultData);
-    localStorage.setItem('accessToken', JSON.stringify(resultData));
-  };
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setAuthData(user
+        ? { _id: user.uid, email: user.email, username: user.displayName || '' }
+        : {}
+      );
+      setIsAuthReady(true);
+    });
 
-  const userLogoutHandler = () => {
-    setAuthData({});
-    localStorage.removeItem('accessToken');
+    return unsubscribe;
+  }, []);
+
+  if (!isAuthReady) {
+    return <p>Loading...</p>;
   }
 
+
   return (
-    <UserContext.Provider value={{ ...authData, userLoginHandler, userLogoutHandler }}>
+    <UserContext.Provider value={authData}>
       <Header />
 
       <main>

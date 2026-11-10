@@ -4,7 +4,7 @@ import BookElement from "../book-element/BookElement";
 import { useLatestBook } from "../../api/bookApi";
 
 export default function Home() {
-    const { latestBooks } = useLatestBook();
+    const { latestBooks, isLoading } = useLatestBook();
 
     return (
         <>
@@ -19,7 +19,9 @@ export default function Home() {
                     </div>
                     <div className="gallery_section_2">
                         <div className="row">
-                            {latestBooks.length > 0
+                            {isLoading
+                                ? <p>Loading...</p>
+                                : latestBooks.length > 0
                                 ? latestBooks.map(book => <BookElement key={book._id} {...book} />)
                                 : <p>No books yet.</p>
                             }

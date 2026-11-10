@@ -13,7 +13,7 @@ export default function BookDetails() {
     const navigate = useNavigate();
     const { userId, isAuthenticated } = useAuth();
     const { bookId } = useParams();
-    const { book } = useBook(bookId);
+    const { book, isLoading } = useBook(bookId);
     const { deleteBook } = useDeleteBook();
     const { comments, setComments } = useComments(bookId);
     const { likesCount, hasLiked, myLike, refetchLikes } = useLikes(bookId);
@@ -55,6 +55,10 @@ export default function BookDetails() {
     };
 
     const isOwner = userId === book._ownerId;
+
+    if (isLoading) {
+        return <p>Loading...</p>;
+    }
 
     return (
         <section id={styles["create-page"]} className="auth">

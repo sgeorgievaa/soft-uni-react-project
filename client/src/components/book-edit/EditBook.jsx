@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Navigate, useNavigate, useParams } from 'react-router'
+import { useEffect, useState } from 'react'
+import { Link, Navigate, useNavigate, useParams } from 'react-router'
 
 import styles from './EditBook.module.css'
 import { useBook, useEditBook } from '../../api/bookApi';
@@ -8,19 +8,62 @@ import useAuth from '../../hooks/useAuth';
 export default function EditBook() {
     const navigate = useNavigate();
     const { bookId } = useParams();
-    const { book, isLoading } = useBook(bookId)
+    const { book, isLoading } = useBook(bookId);
     const { edit } = useEditBook();
     const { userId } = useAuth();
-    const [error, setError] = useState('');
 
-    if (!isLoading && book._id && userId !== book._ownerId) {
+    const [values, setValues] = useState({
+        title: '',
+        author: '',
+        genre: '',
+        year: '',
+        imageUrl: '',
+        summary: '',
+    });
+    const [error, setError] = useState('');
+    const [isPending, setIsPending] = useState(false);
+
+    useEffect(() => {
+        if (book._id) {
+            setValues({
+                title: book.title ?? '',
+                author: book.author ?? '',
+                genre: book.genre ?? '',
+                year: book.year ?? '',
+                imageUrl: book.imageUrl ?? '',
+                summary: book.summary ?? '',
+            });
+        }
+    }, [book]);
+
+    if (isLoading) {
+        return <p>Loading...</p>;
+    }
+
+    if (!book._id) {
+        return <p>Book not found. <Link to="/catalog">Back to catalog</Link></p>;
+    }
+
+    if (userId !== book._ownerId) {
         return <Navigate to={`/catalog/${bookId}/details`} />;
     }
 
-    const formAction = async (formData) => {
+    const changeHandler = (e) => {
+        setValues(state => ({ ...state, [e.target.name]: e.target.value }));
+    };
+
+    const submitHandler = async (e) => {
+        e.preventDefault();
         setError('');
 
-        const bookData = Object.fromEntries(formData);
+        const bookData = {
+            ...values,
+            title: String(values.title).trim(),
+            author: String(values.author).trim(),
+            genre: String(values.genre).trim(),
+            imageUrl: String(values.imageUrl).trim(),
+            summary: String(values.summary).trim(),
+        };
 
         if (!bookData.title || !bookData.author || !bookData.genre || !bookData.year) {
             setError('Please fill in all required fields.');
@@ -32,19 +75,23 @@ export default function EditBook() {
             return;
         }
 
+        setIsPending(true);
+
         try {
             await edit(bookId, bookData);
             navigate(`/catalog/${bookId}/details`);
         } catch (err) {
             setError(err.message || 'Something went wrong while saving your changes. Please try again.');
+        } finally {
+            setIsPending(false);
         }
-    }
+    };
 
     return (
         <section id={styles["create-page"]} className="auth">
             <div className={styles["wrapper"]}>
 
-                <form id={styles["create"]} action={formAction}>
+                <form id={styles["create"]} onSubmit={submitHandler}>
                     <div className={styles["container-add"]}>
 
                         <h1>Edit Book</h1>
@@ -52,28 +99,27 @@ export default function EditBook() {
                         {error && <p className={styles["error"]}>{error}</p>}
 
                         <label htmlFor="title">Title:</label>
-                        <input type="text" id="title" name="title" defaultValue={book.title} />
+                        <input type="text" id="title" name="title" value={values.title} onChange={changeHandler} />
 
                         <label htmlFor="author">Author:</label>
-                        <input type="text" id="author" name="author" defaultValue={book.author} />
+                        <input type="text" id="author" name="author" value={values.author} onChange={changeHandler} />
 
                         <label htmlFor="genre">Genre:</label>
-                        <input type="text" id="genre" name="genre" defaultValue={book.genre} />
+                        <input type="text" id="genre" name="genre" value={values.genre} onChange={changeHandler} />
 
                         <label htmlFor="year">Year of publishing:</label>
-                        <input type="number" id="year" name="year" min="1800" defaultValue={book.year} />
+                        <input type="number" id="year" name="year" min="1800" value={values.year} onChange={changeHandler} />
 
-                        <label htmlFor="cover">Cover:</label>
-                        <input type="text" id="imageUrl" name="imageUrl" defaultValue={book.imageUrl} />
+                        <label htmlFor="imageUrl">Cover:</label>
+                        <input type="text" id="imageUrl" name="imageUrl" value={values.imageUrl} onChange={changeHandler} />
 
                         <label htmlFor="summary">Summary:</label>
-                        <textarea name="summary" id="summary" defaultValue={book.summary}></textarea>
-                        <input className={styles["btn"]} type="submit" value="Edit Book" />
-                    </div>
+                        <textarea name="summary" id="summary" value={values.summary} onChange={changeHandler}></textarea>
 
+                        <input className={styles["btn"]} type="submit" value="Edit Book" disabled={isPending} />
+                    </div>
                 </form>
             </div>
-
         </section>
     );
 }

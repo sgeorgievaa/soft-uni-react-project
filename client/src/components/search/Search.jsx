@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import BookElement from '../book-element/BookElement';
-import request from '../../utils/request';
 import styles from './Search.module.css';
+import { searchBooks } from '../../api/bookApi';
 
-const baseUrl = 'http://localhost:3030/data/books';
 
 export default function Search() {
     const [searchTerm, setSearchTerm] = useState('');
@@ -24,11 +23,7 @@ export default function Search() {
         }
 
         try {
-            const searchParams = new URLSearchParams({
-                where: `${searchField} like "${trimmed}"`,
-            });
-
-            const data = await request.get(`${baseUrl}?${searchParams.toString()}`);
+            const data = await searchBooks(searchField, trimmed);
             setResults(data);
             setHasSearched(true);
         } catch (err) {

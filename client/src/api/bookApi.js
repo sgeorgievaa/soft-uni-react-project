@@ -1,22 +1,37 @@
 import { useEffect, useState } from "react";
-import request from "../utils/request";
+import {
+    addDoc,
+    collection,
+    deleteDoc,
+    doc,
+    getDoc,
+    getDocs,
+    limit,
+    orderBy,
+    query,
+    serverTimestamp,
+    updateDoc,
+} from "firebase/firestore";
+import { db } from "../firebase";
 import useAuth from "../hooks/useAuth";
 
-const baseUrl = 'http://localhost:3030/data/books';
+const booksRef = collection(db, 'books');
+
+const mapDoc = (snapshot) => ({ _id: snapshot.id, ...snapshot.data() });
 
 export const useBooks = () => {
     const [books, setBooks] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        request.get(baseUrl)
-            .then(setBooks)
-            .catch(() => setBooks([]));
+        getDocs(query(booksRef, orderBy('_createdOn', 'desc')))
+            .then(snapshot => setBooks(snapshot.docs.map(mapDoc)))
+            .catch(() => setBooks([]))
+            .finally(() => setIsLoading(false));
     }, []);
 
-    return {
-        books,
-    }
-}
+    return { books, isLoading };
+};
 
 export const useBook = (bookId) => {
     const [book, setBook] = useState({});
@@ -24,69 +39,64 @@ export const useBook = (bookId) => {
 
     useEffect(() => {
         setIsLoading(true);
-        request.get(`${baseUrl}/${bookId}`)
-            .then(setBook)
+
+        getDoc(doc(db, 'books', bookId))
+            .then(snapshot => setBook(snapshot.exists() ? mapDoc(snapshot) : {}))
             .catch(() => setBook({}))
             .finally(() => setIsLoading(false));
     }, [bookId]);
 
-    return {
-        book,
-        isLoading,
-    }
-}
+    return { book, isLoading };
+};
 
 export const useLatestBook = () => {
     const [latestBooks, setLatestBooks] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const searchParams = new URLSearchParams({
-            sortBy: '_createdOn desc',
-            pageSize: 3,
-        });
-
-        request.get(`${baseUrl}?${searchParams.toString()}`)
-            .then(setLatestBooks)
-            .catch(() => setLatestBooks([]));
+        getDocs(query(booksRef, orderBy('_createdOn', 'desc'), limit(3)))
+            .then(snapshot => setLatestBooks(snapshot.docs.map(mapDoc)))
+            .catch(() => setLatestBooks([]))
+            .finally(() => setIsLoading(false));
     }, []);
 
-    return {
-        latestBooks,
-    }
-}
+    return { latestBooks, isLoading };
+};
 
 export const useCreateBook = () => {
-    const {request} = useAuth();
+    const { userId } = useAuth();
 
-    const create = (bookData) => {
-        return request.post(baseUrl, bookData);
-    }
+    const create = (bookData) => addDoc(booksRef, {
+        ...bookData,
+        year: Number(bookData.year),
+        _ownerId: userId,
+        _createdOn: serverTimestamp(),
+    });
 
-    return {
-        create,
-    }
+    return { create };
 };
 
 export const useEditBook = () => {
-    const {request} = useAuth();
+    const edit = (bookId, bookData) => updateDoc(doc(db, 'books', bookId), {
+        ...bookData,
+        year: Number(bookData.year),
+    });
 
-    const edit = (bookId, bookData) => {
-        return request.put(`${baseUrl}/${bookId}`, {...bookData, _id: bookId});
-    }
-
-    return {
-        edit,
-    }
+    return { edit };
 };
 
 export const useDeleteBook = () => {
-    const {request} = useAuth();
+    const deleteBook = (bookId) => deleteDoc(doc(db, 'books', bookId));
 
-    const deleteBook = (bookId) => 
-        request.delete(`${baseUrl}/${bookId}`);
-    
+    return { deleteBook };
+};
 
-    return  {
-        deleteBook,
-    }
-}
+
+export const searchBooks = async (field, term) => {
+    const snapshot = await getDocs(booksRef);
+    const lowered = term.toLowerCase();
+
+    return snapshot.docs
+        .map(mapDoc)
+        .filter(book => String(book[field] ?? '').toLowerCase().includes(lowered));
+};

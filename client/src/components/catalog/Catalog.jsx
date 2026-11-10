@@ -2,7 +2,7 @@ import BookElement from "../book-element/BookElement";
 import { useBooks } from "../../api/bookApi";
 
 export default function Catalog() {
-    const { books } = useBooks();
+    const { books, isLoading } = useBooks();
 
     return (
         <div className="gallery_section layout_padding">
@@ -15,7 +15,9 @@ export default function Catalog() {
                 <div className="">
                     <div className="gallery_section_2">
                         <div className="row">
-                            {books.length > 0
+                            {isLoading
+                                ? <h3>Loading...</h3>
+                                : books.length > 0
                                 ? books.map(book => <BookElement key={book._id} {...book} />)
                                 : <h3>There are no books yet.</h3>
                             }

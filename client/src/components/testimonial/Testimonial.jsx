@@ -22,7 +22,7 @@ export default function Testimonial() {
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="testimonial_section_2">
-                                            <h4 className="client_name_text">Monila <span className="quick_icon"><img src="../public/images/quick-icon.png" /></span></h4>
+                                            <h4 className="client_name_text">Monila <span className="quick_icon"><img src="../images/quick-icon.png" /></span></h4>
                                             <p className="customer_text">many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All themany variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some embarrassing hidden in the middle of text. All the</p>
                                         </div>
                                     </div>
@@ -36,7 +36,7 @@ export default function Testimonial() {
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="testimonial_section_2">
-                                            <h4 className="client_name_text">Monila <span className="quick_icon"><img src="../public/images/quick-icon.png" /></span></h4>
+                                            <h4 className="client_name_text">Monila <span className="quick_icon"><img src="../images/quick-icon.png" /></span></h4>
                                             <p className="customer_text">many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All themany variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some embarrassing hidden in the middle of text. All the</p>
                                         </div>
                                     </div>
@@ -50,7 +50,7 @@ export default function Testimonial() {
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="testimonial_section_2">
-                                            <h4 className="client_name_text">Monila <span className="quick_icon"><img src="../public/images/quick-icon.png" /></span></h4>
+                                            <h4 className="client_name_text">Monila <span className="quick_icon"><img src="../images/quick-icon.png" /></span></h4>
                                             <p className="customer_text">many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All themany variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some embarrassing hidden in the middle of text. All the</p>
                                         </div>
                                     </div>

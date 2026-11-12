@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 export default function Banner() {
     return (
         <div className="banner_section layout_padding">
@@ -10,8 +12,8 @@ export default function Banner() {
                                     <div className="banner_taital">
                                         <h1 className="outstanding_text">Discover Brand New Books</h1>
                                         <h1 className="coffee_text">OurBooks</h1>
-                                        <p className="there_text"> Check our recommendadtions.</p>
-                                        <div className="learnmore_bt"><a href="#">Learn More</a></div>
+                                        <p className="there_text"> Check our recommendations.</p>
+                                        <div className="learnmore_bt"><Link to="/catalog">Learn More</Link></div>
                                     </div>
                                 </div>
                             </div>

@@ -91,6 +91,7 @@ export default function Register() {
                             onChange={changeHandler}
                         />
                     </div>
+                    <p className="form-hint">Password must be at least 6 characters long.</p>
                     <div className="form-group">
                         <input
                             type="password"

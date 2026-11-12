@@ -1,8 +1,18 @@
 import { useCallback, useEffect, useState } from "react";
-import request from "../utils/request";
+import {
+    collection,
+    deleteDoc,
+    doc,
+    getDocs,
+    query,
+    serverTimestamp,
+    setDoc,
+    where,
+} from "firebase/firestore";
+import { db } from "../firebase";
 import useAuth from "../hooks/useAuth";
 
-const baseUrl = 'http://localhost:3030/data/likes';
+const likesRef = collection(db, 'likes');
 
 export const useLikes = (bookId) => {
     const [likes, setLikes] = useState([]);
@@ -13,12 +23,8 @@ export const useLikes = (bookId) => {
             return;
         }
 
-        const searchParams = new URLSearchParams({
-            where: `bookId="${bookId}"`,
-        });
-
-        request.get(`${baseUrl}?${searchParams.toString()}`)
-            .then(setLikes)
+        getDocs(query(likesRef, where('bookId', '==', bookId)))
+            .then(snapshot => setLikes(snapshot.docs.map(snap => ({ _id: snap.id, ...snap.data() }))))
             .catch(() => setLikes([]));
     }, [bookId]);
 
@@ -37,10 +43,16 @@ export const useLikes = (bookId) => {
 };
 
 export const useToggleLike = () => {
-    const { request: authRequest } = useAuth();
+    const { userId } = useAuth();
 
-    const like = (bookId) => authRequest.post(baseUrl, { bookId });
-    const unlike = (likeId) => authRequest.delete(`${baseUrl}/${likeId}`);
+    // The ID "bookId_userId" is what makes a second like from the same user impossible
+    const like = (bookId) => setDoc(doc(db, 'likes', `${bookId}_${userId}`), {
+        bookId,
+        _ownerId: userId,
+        _createdOn: serverTimestamp(),
+    });
+
+    const unlike = (likeId) => deleteDoc(doc(db, 'likes', likeId));
 
     return { like, unlike };
 };

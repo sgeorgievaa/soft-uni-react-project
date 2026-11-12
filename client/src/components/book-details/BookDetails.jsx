@@ -19,6 +19,7 @@ export default function BookDetails() {
     const { likesCount, hasLiked, myLike, refetchLikes } = useLikes(bookId);
     const { like, unlike } = useToggleLike();
     const [likeError, setLikeError] = useState('');
+    const [isLiking, setIsLiking] = useState(false);
 
     const bookDeleteClickHandler = async () => {
         const hasConfirmed = confirm(`Are you sure you want to delete ${book.title} book?`);
@@ -41,6 +42,7 @@ export default function BookDetails() {
 
     const likeClickHandler = async () => {
         setLikeError('');
+        setIsLiking(true);
 
         try {
             if (hasLiked) {
@@ -51,6 +53,8 @@ export default function BookDetails() {
             refetchLikes();
         } catch (err) {
             setLikeError(err.message || 'Could not update your like. Please try again.');
+        } finally {
+            setIsLiking(false);
         }
     };
 
@@ -86,7 +90,7 @@ export default function BookDetails() {
                             <div className={styles['buttons-div']}>
                                 {isAuthenticated
                                     ? (
-                                        <button onClick={likeClickHandler} className={styles["btn"]}>
+                                        <button onClick={likeClickHandler} className={styles["btn"]} disabled={isLiking}>
                                             {hasLiked ? 'Unlike' : 'Like'} ({likesCount})
                                         </button>
                                     )

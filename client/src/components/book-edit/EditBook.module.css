@@ -70,3 +70,9 @@
     font-weight: bold;
     margin-bottom: 1em;
 }
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+}

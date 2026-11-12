@@ -116,7 +116,10 @@ export default function EditBook() {
                         <label htmlFor="summary">Summary:</label>
                         <textarea name="summary" id="summary" value={values.summary} onChange={changeHandler}></textarea>
 
-                        <input className={styles["btn"]} type="submit" value="Edit Book" disabled={isPending} />
+                        <div className={styles["buttons"]}>
+                            <input className={styles["btn"]} type="submit" value="Edit Book" disabled={isPending} />
+                            <Link to={`/catalog/${bookId}/details`} className={styles["btn"]}>Cancel</Link>
+                        </div>
                     </div>
                 </form>
             </div>

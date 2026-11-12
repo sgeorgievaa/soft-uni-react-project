@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router'
+import { useNavigate, Link } from 'react-router'
 
 import styles from './AddBook.module.css'
 import { useCreateBook } from '../../api/bookApi';
@@ -93,7 +93,10 @@ export default function AddBook() {
                         <label htmlFor="summary">Summary:</label>
                         <textarea name="summary" id="summary" value={values.summary} onChange={changeHandler}></textarea>
 
-                        <input className={styles["btn"]} type="submit" value="Add Book" disabled={isPending} />
+                        <div className={styles["buttons"]}>
+                            <input className={styles["btn"]} type="submit" value="Add Book" disabled={isPending} />
+                            <Link to={`/catalog`} className={styles["btn"]}>Cancel</Link>
+                        </div>
                     </div>
                 </form>
             </div>
